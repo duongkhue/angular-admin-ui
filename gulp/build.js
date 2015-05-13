@@ -32,9 +32,9 @@ module.exports = function(options) {
       addRootSlash: false
     };
 
-    var htmlFilter = $.filter('*.html');
-    var jsFilter = $.filter('**/*.js');
-    var cssFilter = $.filter('**/*.css');
+    var htmlFilter = $.filter('**/*.html');
+    var jsFilter = $.filter('**/**/*.js');
+    var cssFilter = $.filter('**/**/*.css');
     var assets;
 
     return gulp.src(options.tmp + '/serve/*.html')
