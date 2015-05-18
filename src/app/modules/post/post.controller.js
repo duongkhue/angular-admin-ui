@@ -2,6 +2,7 @@
 function addPostCtrl(){
     var vm = this;
     vm.titlepage = 'Add Post';
+    vm.btnSubmit = 'Add Post';
 
     vm.update = function(obj){
         var content = $('#content').val();
@@ -9,10 +10,18 @@ function addPostCtrl(){
     };
 }
 
+function editPostCtrl(){
+    var vm = this;
+    vm.titlepage = 'Edit Post';
+    vm.btnSubmit = 'Update Post';
+
+}
+
 function listPostCtrl($scope){
     var vm = this;
     vm.titlepage = 'List Post';
-
+    vm.checkAll = 'Check All';
+    /*begin get list post*/
     var dishes = [
         'noodles',
         'sausage',
@@ -47,7 +56,35 @@ function listPostCtrl($scope){
         list_meals.push({key: i, content: 'meal ' + i + ': ' + dish + ' ' + side});
     }
     vm.items = list_meals;
+    /*end get list post*/
+
+    /*begin handle button check all*/
+    vm.selectedAll = function() {
+        if(vm.checkAll == 'Check All'){
+            angular.forEach(vm.items, function (item) {
+                item.checked = true;
+            });
+            vm.checkAll = 'Uncheck All';
+        } else {
+            angular.forEach(vm.items, function (item) {
+                item.checked = false;
+            });
+            vm.checkAll = 'Check All';
+        }
+
+    };
+    /*end handle button check all*/
+
+    vm.deleteItem = function(id){
+        console.log('id: ' + id);
+    }
+
+    vm.deleteAllItem = function(){
+
+    }
 }
 angular.module('myproject')
     .controller('addPostCtrl',addPostCtrl)
-    .controller('listPostCtrl',listPostCtrl);
+    .controller('editPostCtrl',editPostCtrl)
+    .controller('listPostCtrl',listPostCtrl)
+;

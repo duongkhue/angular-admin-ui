@@ -99,4 +99,17 @@ table.theme-table tbody td, table.theme-table thead th {
 table tbody tr {
   border-bottom: 1px solid #d9e3e5;
 }
+.remove{
+  color:red !important;
+}
+.actions{
+  width:5%;
+}
 /*end table content*/
+.block-actions{
+  position: relative;
+}
+.block-actions-left{
+  position: absolute!important;
+  bottom: 0px;
+}

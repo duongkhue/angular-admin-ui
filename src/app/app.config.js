@@ -55,6 +55,19 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
                 'content@addPost' : { templateUrl: 'app/modules/post/add_post.html'}
             }
         })
+        .state('editPost', {
+            url: '/editPost/{id:int}',
+            views: {
+                '@' : {
+                    templateUrl: 'app/layout/index.html',
+                    controller: 'editPostCtrl',
+                    controllerAs: 'vm'
+                },
+                'header@editPost' : { templateUrl: 'app/layout/navbar.html'},
+                'left@editPost' : { templateUrl: 'app/layout/navleft.html'},
+                'content@editPost' : { templateUrl: 'app/modules/post/add_post.html'}
+            }
+        })
         .state('listPost', {
             url: '/listPost',
             views: {

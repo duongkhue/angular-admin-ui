@@ -1,6 +1,11 @@
 <h1 class="page-header" ng-bind="vm.titlepage"></h1>
 <div class="col-sm-12 placeholders">
-    <div class="col-sm-12 mg-top-10">
+    <div class="col-sm-12 mg-top-10 block-actions">
+        <div class="col-xs-4 pull-left block-actions-left">
+            <a href="" ng-click="vm.selectedAll()" ng-model="vm.checkAll" data-value=""><span class="glyphicon glyphicon-ok"></span> &nbsp;{{vm.checkAll}}</a> &nbsp;|&nbsp;
+            <a href="#/addPost"><span class="glyphicon glyphicon-plus"></span> &nbsp;Add New</a> &nbsp;|&nbsp;
+            <a href="javascript:void(0)" class="remove" ng-confirm-click="Are you SURE you want to delete all item?" ng-click="vm.deleteAllItem()"><span class="glyphicon glyphicon-remove"></span> &nbsp;Delete All</a>
+        </div>
         <div class="col-xs-4 pull-right">
             <label for="search">Search:</label>
             <input ng-model="search" id="search" class="form-control" placeholder="Filter text">
@@ -11,12 +16,20 @@
             <thead>
                 <tr>
                     <th class="id-col">#</th>
+                    <th class="id-col"></th>
                     <th>Content</th>
+                    <th class="actions push-right">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr dir-paginate="item in vm.items | itemsPerPage: 10 | filter:search">
-                    <td class="id-col">{{ item.key }}</td><td>{{ item.content }}</td>
+                    <td class="id-col">{{ item.key }}</td>
+                    <td class="id-col"><input type="checkbox" ng-model="item.checked"></td>
+                    <td>{{ item.content }}</td>
+                    <td class="actions push-right">
+                        <a href="#/editPost/{{ item.key }}"><span class="glyphicon glyphicon-edit"></span></a> |
+                        <a href="javascript:void(0)" class="remove" ng-confirm-click="Are you SURE you want to delete this item?" ng-click="vm.deleteItem(item.key)"><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
                 </tr>
             </tbody>
         </table>
