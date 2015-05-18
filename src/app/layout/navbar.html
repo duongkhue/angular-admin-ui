@@ -1,0 +1,22 @@
+<nav class="navbar" ng-controller="NavbarCtrl">
+  <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="https://github.com/Swiip/generator-gulp-angular">
+            <span class="glyphicon glyphicon-home"></span> Gulp Angular
+            </a>
+            <ul class="nav navbar-nav">
+                <li class="active"><a ng-href="#">Home</a></li>
+                <li><a ng-href="#">About</a></li>
+                <li><a ng-href="#">Contact</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-4 col-md-4 navbar-right">
+          <ul class="nav navbar-nav">
+              <li><a href="#/profile"><span class="glyphicon glyphicon-user">&nbsp;Profile</span></a></li>
+              <li><a href=""><span class="glyphicon glyphicon-envelope">&nbsp;Inbox</span></a></li>
+              <li><a href=""><span class="glyphicon glyphicon-cog">&nbsp;Setting</span></a></li>
+              <li><a href="javascript:void(0)" ng-click='logout()' ng-controller='LogoutCtrl'><span class="glyphicon glyphicon-lock">&nbsp;SignOut</span></a></li>
+          </ul>
+        </div>
+  </div>
+</nav>

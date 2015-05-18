@@ -1,0 +1,38 @@
+<h1 class="page-header" ng-bind="vm.title"></h1>
+<div class="col-sm-12 placeholders text-center">
+    <div class="profile-content">
+        <form class="form-horizontal" name='userForm' method='post' ng-submit='!userForm.$invalid && update(user)'>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for='GroupName'>Username</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static">{{vm.username}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="GroupName">Password</label>
+                <div class="col-sm-9">
+                    <input type="password" required placeholder="password" id="pw1" class="form-control" ng-model="vm.password" name="pw1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="GroupName">Confirm password</label>
+                <div class="col-sm-9">
+                    <input id="pw2" class="form-control" placeholder='Confirm password' required type='password' name='pw2' pw-check="pw1" ng-model='user.confirmpassword'>
+                    <span class="help-block" ng-show="userForm.pw2.$error.pwmatch">Passwords don't match.</span>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error' : userForm.email.$error.email}">
+                <label class="col-sm-3 control-label" for='Description'>Email</label>
+                <div class="col-sm-9">
+                    <input id="inputDescription" class="form-control" ng-model='user.email' name='email' type='email' required placeholder='email'>
+                    <span class="help-block" ng-show="userForm.email.$error.email">Enter a valid email.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-primary btn-default">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
