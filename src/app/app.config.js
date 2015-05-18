@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('myproject', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap']);
+var app = angular.module('myproject', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 'angularUtils.directives.dirPagination']);
 app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     $stateProvider
         .state('home', {

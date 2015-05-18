@@ -57,6 +57,46 @@ body{
 }
 
 /*end login form*/
-.text-center{
+.mg-top-10{
   margin-top: 10px;
 }
+/*begin table content*/
+table{
+  width: 100%;
+}
+table thead {
+  border-bottom: 1px solid #b7c9cd;
+}
+table.theme-table thead th {
+  padding: 10px;
+  text-align: left;
+  height: 50px;
+}
+thead th {
+  background-color: #a7b6cf;
+  color: #fff;
+  padding: 0 20px;
+  text-transform: uppercase;
+}
+table thead th:first-child {
+  border-top-left-radius: 5px!important;
+  border-bottom-left-radius: 0!important;
+  overflow: hidden;
+}
+table thead th:last-child {
+  border-top-right-radius: 5px!important;
+  border-bottom-right-radius: 0!important;
+  overflow: hidden;
+}
+table .id-col{
+  max-width: 25px;
+}
+table.theme-table tbody td, table.theme-table thead th {
+  padding: 10px;
+  text-align: left;
+  height: 50px;
+}
+table tbody tr {
+  border-bottom: 1px solid #d9e3e5;
+}
+/*end table content*/
