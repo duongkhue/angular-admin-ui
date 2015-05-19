@@ -1,13 +1,77 @@
-<ul class="nav nav-sidebar">
-    <li><a href="#/chart">Chart</a></li>
-    <li><a href="#">Post</a>
-        <ul>
-            <li><a href="#/addPost">Add Post</a></li>
-            <li><a href="#/listPost">List Post</a></li>
-        </ul>
-    </li>
-    <li><a href="#">menu 3</a></li>
-    <li><a href="#">menu 4</a></li>
-    <li><a href="#">menu 5</a></li>
-    <li><a href="#">menu 6</a></li>
-</ul>
+<div class="nav nav-sidebar">
+    <div id="gw-sidebar" class="gw-sidebar">
+        <div class="nano-content">
+            <ul class="gw-nav gw-nav-list">
+                <li ui-sref-active="active" id="home">
+                    <a href="#/" ui-sref="home"> <span class="gw-menu-text">Home</span> </a>
+                </li>
+                <li ui-sref-active="active" id="chart">
+                    <a href="#/chart" ui-sref="chart" > <span class="gw-menu-text">Chart</span></a>
+                </li>
+                <li class="init-arrow-down" id="post">
+                    <a href="javascript:void(0)"> <span class="gw-menu-text">Post</span> <b class="gw-arrow icon-arrow-up8"></b> </a>
+                    <ul class="gw-submenu">
+                        <li id="addPost" ui-sref-active="active"> <a href="javascript:void(0)" ui-sref="addPost">Add Post</a> </li>
+                        <li id="listPost" ui-sref-active="active"> <a href="#/listPost" ui-sref="listPost" >List Post</a> </li>
+                    </ul>
+                </li>
+                <li class="init-arrow-down">
+                    <a href="javascript:void(0)"> <span class="gw-menu-text">Category 3</span> <b></b> </a>
+                    <ul class="gw-submenu">
+                        <li> <a href="javascript:void(0)">Menu 1</a> </li>
+                        <li> <a href="javascript:void(0)">Menu 2</a> </li>
+                        <li> <a href="javascript:void(0)">Menu 3</a> </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function () {
+    if($('#' + currentPage).parent().hasClass('gw-submenu')){
+        $('#' + currentPage).parent().find('li').find('ul:visible').slideUp();
+        $('#' + currentPage).parent().parent().removeClass('init-arrow-down');
+        $('#' + currentPage).parent().parent().removeClass('arrow-down');
+        $('#' + currentPage).parent().parent().addClass('arrow-up');
+        $('#' + currentPage).parent().css('display','block');
+        $('#' + currentPage).parent().parent().find('ul').slideDown(300);
+    }
+    $('.gw-nav > li > a').click(function () {
+        var gw_nav = $('.gw-nav');
+        gw_nav.find('li').removeClass('active');
+        $('.gw-nav > li > ul > li').removeClass('active');
+        var checkElement = $(this).parent();
+        var ulDom = checkElement.find('.gw-submenu')[0];
+
+        if (ulDom == undefined) {
+            checkElement.addClass('active');
+            $('.gw-nav').find('li').find('ul:visible').slideUp();
+            return;
+        }
+        if (ulDom.style.display != 'block') {
+            gw_nav.find('li').find('ul:visible').slideUp();
+            gw_nav.find('li.init-arrow-up').removeClass('init-arrow-up').addClass('arrow-down');
+            gw_nav.find('li.arrow-up').removeClass('arrow-up').addClass('arrow-down');
+            checkElement.removeClass('init-arrow-down');
+            checkElement.removeClass('arrow-down');
+            checkElement.addClass('arrow-up');
+            checkElement.addClass('active');
+            checkElement.find('ul').slideDown(300);
+        } else {
+            checkElement.removeClass('init-arrow-up');
+            checkElement.removeClass('arrow-up');
+            checkElement.removeClass('active');
+            checkElement.addClass('arrow-down');
+            checkElement.find('ul').slideUp(300);
+
+        }
+    });
+    $('.gw-nav > li > ul > li > a').click(function () {
+        $(this).parent().parent().parent().removeClass('active');
+        $('.gw-nav > li > ul > li').removeClass('active');
+        $(this).parent().addClass('active')
+    });
+
+});
+</script>

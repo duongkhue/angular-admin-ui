@@ -1,5 +1,6 @@
 'use strict';
 var app = angular.module('myproject', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 'angularUtils.directives.dirPagination']);
+var currentPage = '';
 app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     $stateProvider
         .state('home', {
@@ -118,6 +119,7 @@ app.run(function($rootScope, $location, $state, accountService) {
     $rootScope.$on( '$stateChangeStart', function(e, toState) {
 
         var isLogin = toState.name === 'login';
+        currentPage = toState.name;
         if(isLogin){
             return; // no need to redirect
         }
