@@ -1,4 +1,5 @@
 'use strict';
+var currentPage = '';
 angular
     .module('myproject', [
         'ngAnimate',
@@ -28,18 +29,32 @@ angular
                     'content@home' : { templateUrl: 'app/modules/index.html'}
                 }
             })
-            .state('chart', {
-                title: 'Chart',
-                url: '/chart',
+            .state('chartLine', {
+                title: 'Chart Line',
+                url: '/chartLine',
                 views: {
                     '@' : {
                         templateUrl: 'app/layout/index.html',
-                        controller: 'ChartController',
+                        controller: 'chartLineController',
                         controllerAs: 'vm'
                     },
-                    'header@chart' : { templateUrl: 'app/layout/navbar.html'},
-                    'left@chart' : { templateUrl: 'app/layout/navleft.html'},
-                    'content@chart' : { templateUrl: 'app/modules/chart/chart.html'}
+                    'header@chartLine' : { templateUrl: 'app/layout/navbar.html'},
+                    'left@chartLine' : { templateUrl: 'app/layout/navleft.html'},
+                    'content@chartLine' : { templateUrl: 'app/modules/chart/chart.html'}
+                }
+            })
+            .state('chartStep', {
+                title: 'Chart Step',
+                url: '/chartStep',
+                views: {
+                    '@' : {
+                        templateUrl: 'app/layout/index.html',
+                        controller: 'chartStepController',
+                        controllerAs: 'vm'
+                    },
+                    'header@chartStep' : { templateUrl: 'app/layout/navbar.html'},
+                    'left@chartStep' : { templateUrl: 'app/layout/navleft.html'},
+                    'content@chartStep' : { templateUrl: 'app/modules/chart/chart_step.html'}
                 }
             })
             .state('profile', {
@@ -176,7 +191,7 @@ angular
 
     .run(function($rootScope, $location, $state, accountService) {
 
-        $rootScope.$on( '$stateChangeStart', function(e, current, toState) {
+        $rootScope.$on( '$stateChangeStart', function(e, toState) {
             var isLogin = toState.name === 'login';
             if(isLogin){
                 return; // no need to redirect
