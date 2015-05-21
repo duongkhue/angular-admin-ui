@@ -29,6 +29,7 @@ body{
 }
 .nav-left{
   padding-right:0px !important;
+  padding-left:0px !important;
   background-color: #2c3e50;
   height: 100%;
   min-height: 600px;
@@ -112,4 +113,9 @@ table tbody tr {
 .block-actions-left{
   position: absolute!important;
   bottom: 0px;
+}
+.thumb{
+  width: 20%;
+  height:auto;
+  float:left;
 }

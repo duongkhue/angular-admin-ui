@@ -1,7 +1,16 @@
 'use strict';
-var app = angular.module('myproject', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 'angularUtils.directives.dirPagination']);
+var app = angular.module('myproject', [
+    'ngAnimate',
+    'ngCookies',
+    'ngTouch',
+    'ngSanitize',
+    'ngResource',
+    'ui.router',
+    'ui.bootstrap',
+    'angularFileUpload',
+    'angularUtils.directives.dirPagination']);
 var currentPage = '';
-app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
     $stateProvider
         .state('home', {
             url: '/',
@@ -16,7 +25,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
                 'content@home' : { templateUrl: 'app/modules/index.html'}
             }
         })
-
         .state('chart', {
             url: '/chart',
             views: {
@@ -82,6 +90,45 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
                 'content@listPost' : { templateUrl: 'app/modules/post/list_post.html'}
             }
         })
+        .state('addImage', {
+            url: '/addImage',
+            views: {
+                '@' : {
+                    templateUrl: 'app/layout/index.html',
+                    controller: 'addImageCtrl',
+                    controllerAs: 'vm'
+                },
+                'header@addImage' : { templateUrl: 'app/layout/navbar.html'},
+                'left@addImage' : { templateUrl: 'app/layout/navleft.html'},
+                'content@addImage' : { templateUrl: 'app/modules/image/add_image.html'}
+            }
+        })
+        .state('editImage', {
+            url: '/editImage/{id:int}',
+            views: {
+                '@' : {
+                    templateUrl: 'app/layout/index.html',
+                    controller: 'editImageCtrl',
+                    controllerAs: 'vm'
+                },
+                'header@editImage' : { templateUrl: 'app/layout/navbar.html'},
+                'left@editImage' : { templateUrl: 'app/layout/navleft.html'},
+                'content@editImage' : { templateUrl: 'app/modules/image/add_image.html'}
+            }
+        })
+        .state('listImage', {
+            url: '/listImage',
+            views: {
+                '@' : {
+                    templateUrl: 'app/layout/index.html',
+                    controller: 'listImageCtrl',
+                    controllerAs: 'vm'
+                },
+                'header@listImage' : { templateUrl: 'app/layout/navbar.html'},
+                'left@listImage' : { templateUrl: 'app/layout/navleft.html'},
+                'content@listImage' : { templateUrl: 'app/modules/image/list_image.html'}
+            }
+        })
         .state('login', {
             url: '/login',
             views: {
@@ -95,6 +142,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         });
 
     $urlRouterProvider.otherwise('/');
+    $locationProvider.html5Mode({enabled: true,
+        requireBase: false});
 
     $httpProvider.interceptors.push(function($q, $location, $window) {
         return {

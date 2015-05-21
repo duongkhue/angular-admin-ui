@@ -1,13 +1,40 @@
 'use strict';
-function addPostCtrl(){
+function addPostCtrl($scope, fileUpload){
     var vm = this;
     vm.titlepage = 'Add Post';
     vm.btnSubmit = 'Add Post';
 
-    vm.update = function(obj){
-        var content = $('#content').val();
-        console.log('object: ' + obj.title + ',' + content);
+    vm.update = function(){
+        //var content = $('#content').val();
+        //console.log('object: ' + obj.title + ',' + content);
     };
+
+    /*begin upload file*/
+
+    $scope.file_changed  = function (e) {
+        $scope.$apply(function(scope) {
+            var photofile = e.files[0];
+            console.log('files: ' + photofile);
+            fileUpload.uploadFileToUrl({
+                files: photofile,
+                url: './src/assets/upload'
+            })
+            var reader = new FileReader();
+            reader.onload = function() {
+
+            };
+            reader.readAsDataURL(photofile);
+        });
+
+        //var files = files;
+        console.log('files: ' + files);
+        fileUpload.uploadFileToUrl({
+            files: files,
+            url: './src/assets/upload'
+        });
+    };
+
+    /*end upload file*/
 }
 
 function editPostCtrl(){
@@ -17,7 +44,7 @@ function editPostCtrl(){
 
 }
 
-function listPostCtrl($scope){
+function listPostCtrl(){
     var vm = this;
     vm.titlepage = 'List Post';
     vm.checkAll = 'Check All';
@@ -60,7 +87,7 @@ function listPostCtrl($scope){
 
     /*begin handle button check all*/
     vm.selectedAll = function() {
-        if(vm.checkAll == 'Check All'){
+        if(vm.checkAll === 'Check All'){
             angular.forEach(vm.items, function (item) {
                 item.checked = true;
             });
@@ -75,13 +102,13 @@ function listPostCtrl($scope){
     };
     /*end handle button check all*/
 
-    vm.deleteItem = function(id){
-        console.log('id: ' + id);
-    }
+    vm.deleteItem = function(){
+        //console.log('id: ' + id);
+    };
 
     vm.deleteAllItem = function(){
 
-    }
+    };
 }
 angular.module('myproject')
     .controller('addPostCtrl',addPostCtrl)
