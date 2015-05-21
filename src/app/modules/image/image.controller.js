@@ -1,10 +1,18 @@
 'use strict';
-function addImageCtrl($scope, FileUploader){
+
+angular
+    .module('myproject')
+    .controller('addImageController',addImageController)
+    .controller('editImageController',editImageController)
+    .controller('listImageController',listImageController)
+;
+
+function addImageController(FileUploader){
     var vm = this;
     vm.titlepage = 'Add Image';
     vm.btnSubmit = 'Add Image';
 
-    var uploader = $scope.uploader = new FileUploader({
+    var uploader = vm.uploader = new FileUploader({
         url: 'http://example.dev/angular-file-upload-master/examples/simple/upload.php'
     });
     console.log('uploader: ' + uploader)
@@ -58,18 +66,13 @@ function addImageCtrl($scope, FileUploader){
     /*end upload file*/
 }
 
-function editImageCtrl(){
+function editImageController(){
     var vm = this;
     vm.titlepage = 'Edit Image';
     vm.btnSubmit = 'Update Image';
 
 }
 
-function listImageCtrl(){
+function listImageController(){
 
 }
-angular.module('myproject')
-    .controller('addImageCtrl',addImageCtrl)
-    .controller('editImageCtrl',editImageCtrl)
-    .controller('listImageCtrl',listImageCtrl)
-;

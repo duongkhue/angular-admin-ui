@@ -1,5 +1,13 @@
 'use strict';
-function addPostCtrl($scope, fileUpload){
+
+angular
+    .module('myproject')
+    .controller('addPostController',addPostController)
+    .controller('editPostController',editPostController)
+    .controller('listPostController',listPostController)
+;
+
+function addPostController($scope, fileUpload){
     var vm = this;
     vm.titlepage = 'Add Post';
     vm.btnSubmit = 'Add Post';
@@ -11,7 +19,7 @@ function addPostCtrl($scope, fileUpload){
 
     /*begin upload file*/
 
-    $scope.file_changed  = function (e) {
+    vm.file_changed  = function (e) {
         $scope.$apply(function(scope) {
             var photofile = e.files[0];
             console.log('files: ' + photofile);
@@ -37,14 +45,14 @@ function addPostCtrl($scope, fileUpload){
     /*end upload file*/
 }
 
-function editPostCtrl(){
+function editPostController(){
     var vm = this;
     vm.titlepage = 'Edit Post';
     vm.btnSubmit = 'Update Post';
 
 }
 
-function listPostCtrl(){
+function listPostController(){
     var vm = this;
     vm.titlepage = 'List Post';
     vm.checkAll = 'Check All';
@@ -110,8 +118,3 @@ function listPostCtrl(){
 
     };
 }
-angular.module('myproject')
-    .controller('addPostCtrl',addPostCtrl)
-    .controller('editPostCtrl',editPostCtrl)
-    .controller('listPostCtrl',listPostCtrl)
-;

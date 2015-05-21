@@ -1,5 +1,10 @@
 'use strict';
-function ChartCtrl(){
+
+angular
+    .module('myproject')
+    .controller('ChartController',ChartController);
+
+function ChartController(){
     var vm = this;
     vm.title = 'Chart';
 
@@ -15,5 +20,3 @@ function ChartCtrl(){
         });
     }
 }
-angular.module('myproject')
-    .controller('ChartCtrl',ChartCtrl);

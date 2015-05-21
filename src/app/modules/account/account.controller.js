@@ -2,32 +2,40 @@
  * Created by Coder on 5/15/2015.
  */
 'use strict';
-function IndexCtrl(accountService) {
+
+
+angular
+    .module('myproject')
+    .controller('IndexController', IndexController)
+    .controller('ProfileController', ProfileController)
+    .controller('LoginController', LoginController)
+    .controller('LogoutController', LogoutController);
+
+function IndexController(accountService) {
     var vm =this;
     var result = accountService.getInfo();
     vm.avengers = result;
+    /*getInfo();
+
+    function getInfo(){
+        return accountService.getInfo().then(function(data){
+            vm.avengers = data;
+            return vm.avengers;
+        })
+    }*/
 }
 
-function ProfileCtrl(){
+function ProfileController(){
     var vm = this;
     vm.titlepage = 'Profile';
 }
 
-function LoginCtrl(){
+function LoginController(){
     var vm = this;
     vm.titlepage = 'Login';
 }
 
-function LogoutCtrl(){
+function LogoutController(){
 
 }
-
-angular.module('myproject')
-
-    .controller('AccountCtrl', IndexCtrl)
-    .controller('ProfileCtrl', ProfileCtrl)
-    .controller('LoginCtrl', LoginCtrl)
-    .controller('LogoutCtrl', LogoutCtrl);
-
-
-IndexCtrl.$inject = ['accountService'];
+IndexController.$inject = ['accountService'];

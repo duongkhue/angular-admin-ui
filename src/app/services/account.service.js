@@ -21,7 +21,8 @@
 
         return service;
     }
-    angular.module('myproject')
-    .service('accountService', accountService);
+    angular
+        .module('myproject')
+        .service('accountService', accountService);
 
 })();
