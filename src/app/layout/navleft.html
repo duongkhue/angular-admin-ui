@@ -8,8 +8,8 @@
                 <li class="init-arrow-down" id="chart">
                     <a href="javascript:void(0)"> <span class="gw-menu-text">Chart</span> <b class="gw-arrow icon-arrow-up8"></b> </a>
                     <ul class="gw-submenu">
-                        <li id="chartLine" ui-sref-active="active"> <a href="/chartLine" ui-sref="chartLine">Chart Line</a> </li>
-                        <li id="chartStep" ui-sref-active="active"> <a href="/chartStep" ui-sref="chartStep" >Chart Step</a> </li>
+                        <li id="chartType" ui-sref-active="active"> <a href="/chartType" ui-sref="chartType">Chart Type</a> </li>
+                        <li id="chartGauge" ui-sref-active="active"> <a href="/chartGauge" ui-sref="chartGauge" >Chart Gauge</a> </li>
                     </ul>
                 </li>
                 <li class="init-arrow-down" id="post">
@@ -31,50 +31,49 @@
     </div>
 </div>
 <script>
-$(document).ready(function () {
-    if($('#' + currentPage).parent().hasClass('gw-submenu')){
-        $('#' + currentPage).parent().find('li').find('ul:visible').slideUp();
-        $('#' + currentPage).parent().parent().removeClass('init-arrow-down');
-        $('#' + currentPage).parent().parent().removeClass('arrow-down');
-        $('#' + currentPage).parent().parent().addClass('arrow-up');
-        $('#' + currentPage).parent().css('display','block');
-        $('#' + currentPage).parent().parent().find('ul').slideDown(300);
-    }
-    $('.gw-nav > li > a').click(function () {
-        var gw_nav = $('.gw-nav');
-        gw_nav.find('li').removeClass('active');
-        $('.gw-nav > li > ul > li').removeClass('active');
-        var checkElement = $(this).parent();
-        var ulDom = checkElement.find('.gw-submenu')[0];
-
-        if (ulDom == undefined) {
-            checkElement.addClass('active');
-            $('.gw-nav').find('li').find('ul:visible').slideUp();
-            return;
+    $(document).ready(function () {
+        if($('#' + currentPage).parent().hasClass('gw-submenu')){
+            $('#' + currentPage).parent().find('li').find('ul:visible').slideUp();
+            $('#' + currentPage).parent().parent().removeClass('init-arrow-down');
+            $('#' + currentPage).parent().parent().removeClass('arrow-down');
+            $('#' + currentPage).parent().parent().addClass('arrow-up');
+            $('#' + currentPage).parent().css('display','block');
+            $('#' + currentPage).parent().parent().find('ul').slideDown(300);
         }
-        if (ulDom.style.display != 'block') {
-            gw_nav.find('li').find('ul:visible').slideUp();
-            gw_nav.find('li.init-arrow-up').removeClass('init-arrow-up').addClass('arrow-down');
-            gw_nav.find('li.arrow-up').removeClass('arrow-up').addClass('arrow-down');
-            checkElement.removeClass('init-arrow-down');
-            checkElement.removeClass('arrow-down');
-            checkElement.addClass('arrow-up');
-            checkElement.addClass('active');
-            checkElement.find('ul').slideDown(300);
-        } else {
-            checkElement.removeClass('init-arrow-up');
-            checkElement.removeClass('arrow-up');
-            checkElement.removeClass('active');
-            checkElement.addClass('arrow-down');
-            checkElement.find('ul').slideUp(300);
+        $('.gw-nav > li > a').click(function () {
+            var gw_nav = $('.gw-nav');
+            gw_nav.find('li').removeClass('active');
+            $('.gw-nav > li > ul > li').removeClass('active');
+            var checkElement = $(this).parent();
+            var ulDom = checkElement.find('.gw-submenu')[0];
 
-        }
-    });
-    $('.gw-nav > li > ul > li > a').click(function () {
-        $(this).parent().parent().parent().removeClass('active');
-        $('.gw-nav > li > ul > li').removeClass('active');
-        $(this).parent().addClass('active')
-    });
+            if (ulDom == undefined) {
+                checkElement.addClass('active');
+                $('.gw-nav').find('li').find('ul:visible').slideUp();
+                return;
+            }
+            if (ulDom.style.display != 'block') {
+                gw_nav.find('li').find('ul:visible').slideUp();
+                gw_nav.find('li.init-arrow-up').removeClass('init-arrow-up').addClass('arrow-down');
+                gw_nav.find('li.arrow-up').removeClass('arrow-up').addClass('arrow-down');
+                checkElement.removeClass('init-arrow-down');
+                checkElement.removeClass('arrow-down');
+                checkElement.addClass('arrow-up');
+                checkElement.addClass('active');
+                checkElement.find('ul').slideDown(300);
+            } else {
+                checkElement.removeClass('init-arrow-up');
+                checkElement.removeClass('arrow-up');
+                checkElement.removeClass('active');
+                checkElement.addClass('arrow-down');
+                checkElement.find('ul').slideUp(300);
 
-});
+            }
+        });
+        $('.gw-nav > li > ul > li > a').click(function () {
+            $(this).parent().parent().parent().removeClass('active');
+            $('.gw-nav > li > ul > li').removeClass('active');
+            $(this).parent().addClass('active')
+        });
+    });
 </script>

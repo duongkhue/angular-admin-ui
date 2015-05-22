@@ -29,32 +29,32 @@ angular
                     'content@home' : { templateUrl: 'app/modules/index.html'}
                 }
             })
-            .state('chartLine', {
-                title: 'Chart Line',
-                url: '/chartLine',
+            .state('chartType', {
+                title: 'Chart',
+                url: '/chartType',
                 views: {
                     '@' : {
                         templateUrl: 'app/layout/index.html',
-                        controller: 'chartLineController',
+                        controller: 'chartTypeController',
                         controllerAs: 'vm'
                     },
-                    'header@chartLine' : { templateUrl: 'app/layout/navbar.html'},
-                    'left@chartLine' : { templateUrl: 'app/layout/navleft.html'},
-                    'content@chartLine' : { templateUrl: 'app/modules/chart/chart.html'}
+                    'header@chartType' : { templateUrl: 'app/layout/navbar.html'},
+                    'left@chartType' : { templateUrl: 'app/layout/navleft.html'},
+                    'content@chartType' : { templateUrl: 'app/modules/chart/chart.html'}
                 }
             })
-            .state('chartStep', {
-                title: 'Chart Step',
-                url: '/chartStep',
+            .state('chartGauge', {
+                title: 'Chart Gauge',
+                url: '/chartGauge',
                 views: {
                     '@' : {
                         templateUrl: 'app/layout/index.html',
-                        controller: 'chartStepController',
+                        controller: 'chartGaugeController',
                         controllerAs: 'vm'
                     },
-                    'header@chartStep' : { templateUrl: 'app/layout/navbar.html'},
-                    'left@chartStep' : { templateUrl: 'app/layout/navleft.html'},
-                    'content@chartStep' : { templateUrl: 'app/modules/chart/chart_step.html'}
+                    'header@chartGauge' : { templateUrl: 'app/layout/navbar.html'},
+                    'left@chartGauge' : { templateUrl: 'app/layout/navleft.html'},
+                    'content@chartGauge' : { templateUrl: 'app/modules/chart/chart.html'}
                 }
             })
             .state('profile', {
