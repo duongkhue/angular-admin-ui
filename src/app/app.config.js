@@ -11,7 +11,7 @@ angular
         'ui.bootstrap',
         'angularFileUpload',
         'angularUtils.directives.dirPagination',
-        'gridshore.c3js.chart',
+        'angular-c3',
         ])
 
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {

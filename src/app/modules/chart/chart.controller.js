@@ -5,7 +5,6 @@ angular
     .controller('chartTypeController',ChartTypeController)
     .controller('chartGaugeController',chartGaugeController);
 
-
 function ChartTypeController() {
     var vm = this;
     vm.title = 'Chart Type';
