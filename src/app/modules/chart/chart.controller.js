@@ -7,7 +7,6 @@ angular
 
 
 function ChartTypeController() {
-
     var vm = this;
     vm.title = 'Chart Type';
     vm.chartOptions = true;
@@ -43,13 +42,13 @@ function ChartTypeController() {
         if (obj.typeChart) {
             chart.transform(obj.typeChart);
         }
-    }
+    };
 
     vm.showChart = function () {
         params.nameCol1 = 'item1';
         params.nameCol2 = 'item2';
         drawChart(params);
-    }
+    };
 
     function drawChart(obj) {
         return c3.generate({
@@ -111,13 +110,13 @@ function chartGaugeController(){
                 ],
                 type: 'gauge',
                 onclick: function (d, i) {
-                    console.log("onclick", d, i);
+                    //console.log("onclick", d, i);
                 },
                 onmouseover: function (d, i) {
-                    console.log("onmouseover", d, i);
+                    //console.log("onmouseover", d, i);
                 },
                 onmouseout: function (d, i) {
-                    console.log("onmouseout", d, i);
+                    //console.log("onmouseout", d, i);
                 }
             },
             gauge: {
