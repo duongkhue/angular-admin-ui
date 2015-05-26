@@ -10,7 +10,9 @@ angular
         'ui.router',
         'ui.bootstrap',
         'angularFileUpload',
-        'angularUtils.directives.dirPagination'])
+        'angularUtils.directives.dirPagination',
+        'gridshore.c3js.chart',
+        ])
 
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
         $stateProvider

@@ -5,7 +5,7 @@ angular
     .module('myproject')
     .controller('IndexController', IndexController);
 
-function IndexCtrl(accountService) {
+function IndexController(accountService) {
     var vm =this;
     var result = accountService.getInfo();
     vm.avengers = result;

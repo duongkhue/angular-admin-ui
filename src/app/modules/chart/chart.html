@@ -27,19 +27,30 @@
             <label>Height:</label><input name="" ng-model="vm.heightChart">
         </div>
         <div class="row-fluid">
-            <input type="checkbox" ng-model="vm.hidePoint"> Hide Point
+            <input type="checkbox" ng-model="vm.isHidePoint" name="hidePoint"> Hide Point</input>
         </div>
         <div class="row-fluid">
             <input type="checkbox" ng-model="vm.hideTooltip"> Hide Tooltip
         </div>
         <div class="row-fluid">
-            <input type="checkbox" ng-model="vm.isGrouped"> Grouping
+            <input type="checkbox" ng-model="vm.Grouped" name="grouping"> Grouping
         </div>
         <div class="row-fluid">
             <button data-ng-click="vm.submit(vm)">Submit</button>
         </div>
     </div>
     <div class="col-sm-12 mg-top-10">
-        <div id="viewChart" ng-init="vm.showChart()"></div>
+        <c3-chart id="viewChart" ng-init="vm.showChart()"></c3-chart>
+        <!--<c3chart bindto-id="chart1" chart-data="vm.datapoints" chart-columns="vm.datacolumns" show-labels="true" show-point="true">
+            &lt;!&ndash;<chart-size chart-height="vm.height" chart-width="vm.width"/>&ndash;&gt;
+            &lt;!&ndash;<chart-points show-point="{{vm.point}}"></chart-points>&ndash;&gt;
+        </c3chart>-->
+        <!--<c3chart bindto-id="chart1" show-labels="true" chart-data="vm.datapoints" chart-columns="vm.datacolumns" chart-x="vm.datax">
+            <chart-axis>
+                <chart-axis-x axis-id="x" axis-type="timeseries">
+                    <chart-axis-x-tick tick-format="%Y-%m-%d"/>
+                </chart-axis-x>
+            </chart-axis>
+        </c3chart>-->
     </div>
 </div>
