@@ -1,18 +1,16 @@
 'use strict';
-
-angular
-    .module('myproject')
+angular.module('myproject')
     .controller('addImageController',addImageController)
     .controller('editImageController',editImageController)
     .controller('listImageController',listImageController)
 ;
 
-function addImageController(FileUploader){
+function addImageController($scope, FileUploader){
     var vm = this;
     vm.titlepage = 'Add Image';
     vm.btnSubmit = 'Add Image';
 
-    var uploader = vm.uploader = new FileUploader({
+    var uploader = $scope.uploader = new FileUploader({
         url: 'http://example.dev/angular-file-upload-master/examples/simple/upload.php'
     });
     console.log('uploader: ' + uploader)

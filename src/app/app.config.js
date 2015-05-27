@@ -195,6 +195,7 @@ angular
 
         $rootScope.$on( '$stateChangeStart', function(e, toState) {
             var isLogin = toState.name === 'login';
+            currentPage = toState.name;
             if(isLogin){
                 return; // no need to redirect
             }

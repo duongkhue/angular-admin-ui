@@ -43,11 +43,12 @@ function ChartTypeController() {
         }
     };
 
-    vm.showChart = function () {
+    //vm.showChart = function () {
         params.nameCol1 = 'item1';
         params.nameCol2 = 'item2';
+        params.type = '';
         drawChart(params);
-    };
+    //};
 
     function drawChart(obj) {
         return c3.generate({
@@ -65,6 +66,7 @@ function ChartTypeController() {
                     data1: 'y',
                     data2: 'y2'
                 },
+                type: obj.typeChart,
                 labels: true
             },
             color: {
