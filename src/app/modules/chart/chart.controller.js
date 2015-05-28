@@ -5,94 +5,69 @@ angular
     .controller('chartTypeController',ChartTypeController)
     .controller('chartGaugeController',chartGaugeController);
 
-function ChartTypeController() {
+function ChartTypeController($scope) {
     var vm = this;
     vm.title = 'Chart Type';
-    vm.chartOptions = true;
+    $scope.chartOptions = true;
     var params = [];
 
-    vm.submit = function (obj) {
-        var IsShowY2 = false;
-        var hidePoint = true;
+    $scope.dataset = [
+        {
+            'day': '2013-01-02_00:00:00',
+            'sales': 13461.295202,
+            'income': 12365.053
+        },
+        {
+            'day': '2013-01-04_00:00:00',
+            'sales': 16461.295202,
+            'income': 11365.053
+        }
+    ];
+    $scope.options = optionChart(params);
+
+    vm.submit = function () {
         var isHideTooltip = true;
         var isGrouped = true;
-        if (obj.Grouped) {
+        if (vm.Grouped) {
             isGrouped = false;
         }
-        if (obj.isHidePoint) {
-            hidePoint = false;
-        }
-        if (obj.hideTooltip) {
+        if (vm.hideTooltip) {
             isHideTooltip = false;
         }
-        if (obj.nameCol2) {
-            IsShowY2 = true;
-        }
-
-
-        params = obj;
-        params.IsShowY2 = IsShowY2;
-        params.hidePoint = hidePoint;
-        params.isGrouped = isGrouped;
-        params.isHideTooltip = isHideTooltip;
-
-        var chart = drawChart(params);
-
-        if (obj.typeChart) {
-            chart.transform(obj.typeChart);
-        }
+        params = vm;
+        params['isHideTooltip'] = isHideTooltip;
+        $scope.options = optionChart(params);
     };
 
-    //vm.showChart = function () {
-        params.nameCol1 = 'item1';
-        params.nameCol2 = 'item2';
-        params.type = '';
-        drawChart(params);
-    //};
-
-    function drawChart(obj) {
-        return c3.generate({
-            bindto: '#viewChart',
-            data: {
-                columns: [
-                    ['data1', 30, 200, 100, 400, 150, 250],
-                    ['data2', 130, 100, 140, 200, 150, 50]
-                ],
-                names: {
-                    data1: 'item1',
-                    data2: 'item2'
+    function optionChart(params) {
+        return {
+            data:{
+                groups: ['income']
+            },
+            rows: [
+                {
+                    key: 'income',
+                    axis:'y2'
                 },
-                axes: {
-                    data1: 'y',
-                    data2: 'y2'
-                },
-                type: obj.typeChart,
-                labels: true
+                {key: 'sales'}
+            ],
+            type: params.typeChart,
+            yAxis:{
+                label: params.nameCol1
             },
-            color: {
-                pattern: ['#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
+            y2Axis:{
+                label: params.nameCol2,
+                tickOptions: 'income'
             },
-            axis: {
-                y: {
-                    label: obj.nameCol1
-                },
-                y2: {
-                    show: obj.IsShowY2,
-                    label: obj.nameCol2
-                }
+            size:{
+                width: params.widthChart,
+                height: params.heightChart
             },
-            point: {
-                show: obj.hidePoint
-            },
-            size: {
-                height: obj.heightChart,
-                width: obj.widthChart
-            },
-            tooltip: {
-                show: obj.isHideTooltip,
-                grouped: obj.isGrouped
+            tooltip:{
+                hide:true
             }
-        });
+            //groups: isGrouped
+        };
     }
 }
 

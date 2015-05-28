@@ -10,8 +10,7 @@ angular
         'ui.router',
         'ui.bootstrap',
         'angularFileUpload',
-        'angularUtils.directives.dirPagination',
-        'angular-c3',
+        'angularUtils.directives.dirPagination'
         ])
 
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {

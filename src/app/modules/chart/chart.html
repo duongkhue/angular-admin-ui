@@ -1,6 +1,6 @@
 <h1 class="page-header" ng-bind="vm.title"></h1>
 <div class="col-sm-12 placeholders">
-    <div class="col-sm-12 mg-top-10 chartOptions" ng-show="vm.chartOptions">
+    <div class="col-sm-12 mg-top-10 chartOptions" ng-show="chartOptions">
         <div class="row-fluid">
             <select name="typeChart" id="typeChart" ng-model="vm.typeChart">
                 <option value="">---Select option---</option>
@@ -36,10 +36,10 @@
             <input type="checkbox" ng-model="vm.Grouped" name="grouping"> Grouping
         </div>
         <div class="row-fluid">
-            <button data-ng-click="vm.submit(vm)">Submit</button>
+            <button data-ng-click="vm.submit()">Submit</button>
         </div>
     </div>
     <div class="col-sm-12 mg-top-10">
-        <c3-chart id="viewChart" config="vm.config" ng-init="vm.showChart()"></c3-chart>
+        <acme-angular-chart dataset="dataset" options="ontions"></acme-angular-chart>
     </div>
 </div>
