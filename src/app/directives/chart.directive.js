@@ -69,6 +69,9 @@ function angularChart($compile, $q){
                         y: {
                             lines: []
                         }
+                    },
+                    point:{
+                        show:true
                     }
                 };
 
@@ -333,7 +336,19 @@ function angularChart($compile, $q){
                     if (scope.options.tooltip) {
                         if (scope.options.tooltip.displayFormat) {
                             scope.configuration.tooltip.format.value = scope.options.tooltip.displayFormat;
-                            //scope.configuration.tooltip.format.value = 'test';
+                        }
+                        if (typeof scope.options.tooltip.show !== undefined){
+                            scope.configuration.tooltip.show = scope.options.tooltip.show;
+                        }
+                        if (typeof scope.options.tooltip.grouped !== undefined){
+                            scope.configuration.tooltip.grouped = scope.options.tooltip.grouped;
+                        }
+                    }
+
+                    //point
+                    if(scope.options.point){
+                        if(typeof scope.options.point.show !== undefined){
+                            scope.configuration.point.show = scope.options.point.show;
                         }
                     }
 

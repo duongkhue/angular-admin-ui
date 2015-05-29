@@ -28,6 +28,10 @@ function ChartTypeController($scope) {
     vm.submit = function () {
         var isHideTooltip = true;
         var isGrouped = true;
+        var isHidePoint = true;
+        if (vm.isHidePoint){
+            isHidePoint = false;
+        }
         if (vm.Grouped) {
             isGrouped = false;
         }
@@ -36,14 +40,16 @@ function ChartTypeController($scope) {
         }
         params = vm;
         params['isHideTooltip'] = isHideTooltip;
+        params['isGrouped'] = isGrouped;
+        params['isHidePoint'] = isHidePoint;
         $scope.options = optionChart(params);
     };
 
     function optionChart(params) {
         return {
-            data:{
-                groups: ['income']
-            },
+            /*data:{
+                groups: [['income']]
+            },*/
             rows: [
                 {
                     key: 'income',
@@ -63,10 +69,13 @@ function ChartTypeController($scope) {
                 width: params.widthChart,
                 height: params.heightChart
             },
-            tooltip:{
-                hide:true
+            tooltip: {
+                show: params['isHideTooltip'],
+                grouped: params['isGrouped']
+            },
+            point: {
+                show: params['isHidePoint']
             }
-            //groups: isGrouped
         };
     }
 }
