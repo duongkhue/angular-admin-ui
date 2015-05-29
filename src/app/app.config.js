@@ -10,7 +10,8 @@ angular
         'ui.router',
         'ui.bootstrap',
         'angularFileUpload',
-        'angularUtils.directives.dirPagination'
+        'angularUtils.directives.dirPagination',
+        'datatables'
         ])
 
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
@@ -28,6 +29,21 @@ angular
                     'header@home' : { templateUrl: 'app/layout/navbar.html'},
                     'left@home' : { templateUrl: 'app/layout/navleft.html'},
                     'content@home' : { templateUrl: 'app/modules/index.html'}
+                }
+            })
+            .state('dataTable', {
+
+                url: '/dataTable',
+                views: {
+                    '@' : {
+                        templateUrl: 'app/layout/index.html',
+                        controller: 'DataTableController',
+                        controllerAs: 'vm',
+                        title: 'DataTable'
+                    },
+                    'header@dataTable' : { templateUrl: 'app/layout/navbar.html'},
+                    'left@dataTable' : { templateUrl: 'app/layout/navleft.html'},
+                    'content@dataTable' : { templateUrl: 'app/modules/datatable/datatable.html'}
                 }
             })
             .state('chartType', {
@@ -170,8 +186,8 @@ angular
             });
 
         $urlRouterProvider.otherwise('/');
-        $locationProvider.html5Mode({enabled: true,
-            requireBase: false});
+        //$locationProvider.html5Mode({enabled: true,
+            //requireBase: false});
 
         $httpProvider.interceptors.push(function($q, $location, $window) {
             return {
