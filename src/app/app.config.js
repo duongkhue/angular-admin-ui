@@ -1,5 +1,7 @@
 'use strict';
 var currentPage = '';
+var path_layout = './app/layout/';
+var path_modules = './app/modules/';
 angular
     .module('myproject', [
         'ngAnimate',
@@ -21,14 +23,14 @@ angular
                 url: '/',
                 views: {
                     '@' : {
-                        templateUrl: 'app/layout/index.html',
+                        templateUrl: path_layout + 'index.html',
                         controller: 'IndexController',
                         controllerAs: 'vm',
                         title: 'Home'
                     },
-                    'header@home' : { templateUrl: 'app/layout/navbar.html'},
-                    'left@home' : { templateUrl: 'app/layout/navleft.html'},
-                    'content@home' : { templateUrl: 'app/modules/index.html'}
+                    'header@home' : { templateUrl: path_layout + 'navbar.html'},
+                    'left@home' : { templateUrl: path_layout + 'navleft.html'},
+                    'content@home' : { templateUrl: path_modules + 'index.html'}
                 }
             })
             .state('dataTable', {
@@ -36,14 +38,14 @@ angular
                 url: '/dataTable',
                 views: {
                     '@' : {
-                        templateUrl: 'app/layout/index.html',
+                        templateUrl: path_layout + 'index.html',
                         controller: 'DataTableController',
                         controllerAs: 'vm',
                         title: 'DataTable'
                     },
-                    'header@dataTable' : { templateUrl: 'app/layout/navbar.html'},
-                    'left@dataTable' : { templateUrl: 'app/layout/navleft.html'},
-                    'content@dataTable' : { templateUrl: 'app/modules/datatable/datatable.html'}
+                    'header@dataTable' : { templateUrl: path_layout + 'navbar.html'},
+                    'left@dataTable' : { templateUrl: path_layout + 'navleft.html'},
+                    'content@dataTable' : { templateUrl: path_modules + 'datatable/datatable.html'}
                 }
             })
             .state('chartType', {
@@ -51,13 +53,13 @@ angular
                 url: '/chartType',
                 views: {
                     '@' : {
-                        templateUrl: 'app/layout/index.html',
+                        templateUrl: path_layout + 'index.html',
                         controller: 'chartTypeController',
                         controllerAs: 'vm'
                     },
-                    'header@chartType' : { templateUrl: 'app/layout/navbar.html'},
-                    'left@chartType' : { templateUrl: 'app/layout/navleft.html'},
-                    'content@chartType' : { templateUrl: 'app/modules/chart/chart.html'}
+                    'header@chartType' : { templateUrl: path_layout + 'navbar.html'},
+                    'left@chartType' : { templateUrl: path_layout + 'navleft.html'},
+                    'content@chartType' : { templateUrl: path_modules + 'chart/chart.html'}
                 }
             })
             .state('chartGauge', {
@@ -65,13 +67,13 @@ angular
                 url: '/chartGauge',
                 views: {
                     '@' : {
-                        templateUrl: 'app/layout/index.html',
+                        templateUrl: path_layout + 'index.html',
                         controller: 'chartGaugeController',
                         controllerAs: 'vm'
                     },
-                    'header@chartGauge' : { templateUrl: 'app/layout/navbar.html'},
-                    'left@chartGauge' : { templateUrl: 'app/layout/navleft.html'},
-                    'content@chartGauge' : { templateUrl: 'app/modules/chart/chart.html'}
+                    'header@chartGauge' : { templateUrl: path_layout + 'navbar.html'},
+                    'left@chartGauge' : { templateUrl: path_layout + 'navleft.html'},
+                    'content@chartGauge' : { templateUrl: path_modules + 'chart/chart.html'}
                 }
             })
             .state('profile', {
@@ -79,13 +81,13 @@ angular
                 url: '/profile',
                 views: {
                     '@' : {
-                        templateUrl: 'app/layout/index.html',
+                        templateUrl: path_layout + 'index.html',
                         controller: 'ProfileController',
                         controllerAs: 'vm'
                     },
-                    'header@profile' : { templateUrl: 'app/layout/navbar.html'},
-                    'left@profile' : { templateUrl: 'app/layout/navleft.html'},
-                    'content@profile' : { templateUrl: 'app/modules/account/profile.html'}
+                    'header@profile' : { templateUrl: path_layout + 'navbar.html'},
+                    'left@profile' : { templateUrl: path_layout + 'navleft.html'},
+                    'content@profile' : { templateUrl: path_modules + 'account/profile.html'}
                 }
             })
             .state('addPost', {
@@ -93,13 +95,13 @@ angular
                 url: '/addPost',
                 views: {
                     '@' : {
-                        templateUrl: 'app/layout/index.html',
+                        templateUrl: path_layout + 'index.html',
                         controller: 'addPostController',
                         controllerAs: 'vm'
                     },
-                    'header@addPost' : { templateUrl: 'app/layout/navbar.html'},
-                    'left@addPost' : { templateUrl: 'app/layout/navleft.html'},
-                    'content@addPost' : { templateUrl: 'app/modules/post/add_post.html'}
+                    'header@addPost' : { templateUrl: path_layout + 'navbar.html'},
+                    'left@addPost' : { templateUrl: path_layout + 'navleft.html'},
+                    'content@addPost' : { templateUrl: path_modules + 'post/add_post.html'}
                 }
             })
             .state('editPost', {
@@ -107,13 +109,13 @@ angular
                 url: '/editPost/{id:int}',
                 views: {
                     '@' : {
-                        templateUrl: 'app/layout/index.html',
+                        templateUrl: path_layout + 'index.html',
                         controller: 'editPostController',
                         controllerAs: 'vm'
                     },
-                    'header@editPost' : { templateUrl: 'app/layout/navbar.html'},
-                    'left@editPost' : { templateUrl: 'app/layout/navleft.html'},
-                    'content@editPost' : { templateUrl: 'app/modules/post/add_post.html'}
+                    'header@editPost' : { templateUrl: path_layout + 'navbar.html'},
+                    'left@editPost' : { templateUrl: path_layout + 'navleft.html'},
+                    'content@editPost' : { templateUrl: path_modules + 'post/add_post.html'}
                 }
             })
             .state('listPost', {
@@ -121,13 +123,13 @@ angular
                 url: '/listPost',
                 views: {
                     '@' : {
-                        templateUrl: 'app/layout/index.html',
+                        templateUrl: path_layout + 'index.html',
                         controller: 'listPostController',
                         controllerAs: 'vm'
                     },
-                    'header@listPost' : { templateUrl: 'app/layout/navbar.html'},
-                    'left@listPost' : { templateUrl: 'app/layout/navleft.html'},
-                    'content@listPost' : { templateUrl: 'app/modules/post/list_post.html'}
+                    'header@listPost' : { templateUrl: path_layout + 'navbar.html'},
+                    'left@listPost' : { templateUrl: path_layout + 'navleft.html'},
+                    'content@listPost' : { templateUrl: path_modules + 'post/list_post.html'}
                 }
             })
             .state('addImage', {
@@ -135,13 +137,13 @@ angular
                 url: '/addImage',
                 views: {
                     '@' : {
-                        templateUrl: 'app/layout/index.html',
+                        templateUrl: path_layout + 'index.html',
                         controller: 'addImageController',
                         controllerAs: 'vm'
                     },
-                    'header@addImage' : { templateUrl: 'app/layout/navbar.html'},
-                    'left@addImage' : { templateUrl: 'app/layout/navleft.html'},
-                    'content@addImage' : { templateUrl: 'app/modules/image/add_image.html'}
+                    'header@addImage' : { templateUrl: path_layout + 'navbar.html'},
+                    'left@addImage' : { templateUrl: path_layout + 'navleft.html'},
+                    'content@addImage' : { templateUrl: path_modules + 'image/add_image.html'}
                 }
             })
             .state('editImage', {
@@ -149,13 +151,13 @@ angular
                 url: '/editImage/{id:int}',
                 views: {
                     '@' : {
-                        templateUrl: 'app/layout/index.html',
+                        templateUrl: path_layout + 'index.html',
                         controller: 'editImageController',
                         controllerAs: 'vm'
                     },
-                    'header@editImage' : { templateUrl: 'app/layout/navbar.html'},
-                    'left@editImage' : { templateUrl: 'app/layout/navleft.html'},
-                    'content@editImage' : { templateUrl: 'app/modules/image/add_image.html'}
+                    'header@editImage' : { templateUrl: path_layout + 'navbar.html'},
+                    'left@editImage' : { templateUrl: path_layout + 'navleft.html'},
+                    'content@editImage' : { templateUrl: path_modules + 'image/add_image.html'}
                 }
             })
             .state('listImage', {
@@ -163,13 +165,13 @@ angular
                 url: '/listImage',
                 views: {
                     '@' : {
-                        templateUrl: 'app/layout/index.html',
+                        templateUrl: path_layout + 'index.html',
                         controller: 'listImageController',
                         controllerAs: 'vm'
                     },
-                    'header@listImage' : { templateUrl: 'app/layout/navbar.html'},
-                    'left@listImage' : { templateUrl: 'app/layout/navleft.html'},
-                    'content@listImage' : { templateUrl: 'app/modules/image/list_image.html'}
+                    'header@listImage' : { templateUrl: path_layout + 'navbar.html'},
+                    'left@listImage' : { templateUrl: path_layout + 'navleft.html'},
+                    'content@listImage' : { templateUrl: path_modules + 'image/list_image.html'}
                 }
             })
             .state('login', {
@@ -177,11 +179,11 @@ angular
                 url: '/login',
                 views: {
                     '@' : {
-                        templateUrl: 'app/layout/login.html',
+                        templateUrl: path_layout + 'login.html',
                         controller: 'LoginController',
                         controllerAs: 'vm'
                     },
-                    'content@login' : { templateUrl: 'app/modules/account/login.html'}
+                    'content@login' : { templateUrl: path_modules + 'account/login.html'}
                 }
             });
 
