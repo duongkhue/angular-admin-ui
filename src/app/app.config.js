@@ -188,8 +188,7 @@ angular
             });
 
         $urlRouterProvider.otherwise('/');
-        //$locationProvider.html5Mode({enabled: true,
-            //requireBase: false});
+        $locationProvider.html5Mode({enabled: true,requireBase: false});
 
         $httpProvider.interceptors.push(function($q, $location, $window) {
             return {
