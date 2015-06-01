@@ -30,12 +30,33 @@ function ProfileController(){
     vm.titlepage = 'Profile';
 }
 
-function LoginController(){
+function LoginController($auth){
     var vm = this;
     vm.titlepage = 'Login';
+    vm.authenticate = function(provider){
+        $auth.authenticate(provider)
+        .then(function() {
+                console.log("login success");
+            /*$alert({
+                content: 'You have successfully logged in',
+                animation: 'fadeZoomFadeDown',
+                type: 'material',
+                duration: 3
+            });*/
+        })
+            .catch(function(response) {
+                console.log("login error");
+                /*$alert({
+                    content: response.data ? response.data.message : response,
+                    animation: 'fadeZoomFadeDown',
+                    type: 'material',
+                    duration: 3
+                });*/
+            });
+    }
 }
 
-function LogoutController(){
-
+function LogoutController($auth){
+    $auth.logout();
 }
 IndexController.$inject = ['accountService'];

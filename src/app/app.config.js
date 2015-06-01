@@ -13,10 +13,54 @@ angular
         'ui.bootstrap',
         'angularFileUpload',
         'angularUtils.directives.dirPagination',
-        'datatables'
+        'datatables',
+        'satellizer'
         ])
 
-    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $authProvider) {
+
+        /*begin config authentication*/
+        $authProvider.withCredentials = false,
+        $authProvider.facebook({
+            clientId: '1599615690280071',
+            url: 'http://localhost:8000/auth/facebook.php'
+        });
+
+        $authProvider.google({
+            clientId: '48885658359-791rlan9bdhuq9omjg9tbkva1f3hkovq.apps.googleusercontent.com',
+            url: 'http://localhost:8000/auth/google.php'
+        });
+
+        $authProvider.github({
+            clientId: '0ba2600b1dbdb756688b'
+        });
+
+        $authProvider.linkedin({
+            clientId: '77cw786yignpzj'
+        });
+
+        $authProvider.yahoo({
+            clientId: 'dj0yJmk9RldjUzZMNG1qWHpYJmQ9WVdrOVpISTVhMjg0TjJVbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1mOQ--'
+        });
+
+        $authProvider.live({
+            clientId: '0000000044108515'
+        });
+
+        $authProvider.twitter({
+            url: '/auth/twitter'
+        });
+
+        $authProvider.oauth2({
+            name: 'foursquare',
+            url: 'htpp://localhost:8000/auth....',
+            redirectUri: window.location.origin,
+            clientId: 'MTCEJ3NGW2PNNB31WOSBFDSAD4MTHYVAZ1UKIULXZ2CVFC2K',
+            authorizationEndpoint: 'https://foursquare.com/oauth2/authenticate'
+        });
+
+        /*end config authentication*/
+
         $stateProvider
             .state('home', {
 
