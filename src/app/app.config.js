@@ -1,8 +1,6 @@
 'use strict';
 var currentPage = '';
-var path_layout = './app/layout/';
-var path_modules = './app/modules/';
-var link_server = 'http://auth.dev/';
+
 angular
     .module('myproject', [
         'ngAnimate',
@@ -17,42 +15,25 @@ angular
         'datatables',
         'satellizer'
         ])
-
-    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $authProvider) {
-
+    .constant('config',{
+        PATH_LAYOUT: './app/layout/',
+        PATH_MODULES: './app/modules/',
+        LINK_SERVER: 'http://auth.dev/'
+    })
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $authProvider, config) {
+        
         /*begin config authentication*/
-        /*$authProvider.httpInterceptor = true; // Add Authorization header to HTTP request
-        $authProvider.loginOnSignup = true;
-        $authProvider.baseUrl = '' // API Base URL for the paths below.
-        $authProvider.loginRedirect = '/';
-        $authProvider.logoutRedirect = '/';
-        $authProvider.signupRedirect = '/login';
-        $authProvider.signupUrl = '/auth/signup';
-        $authProvider.loginRoute = '/login';
-        $authProvider.signupRoute = '/signup';
-        $authProvider.tokenRoot = false; // set the token parent element if the token is not the JSON root
-        $authProvider.tokenName = 'token';
-        $authProvider.tokenPrefix = 'satellizer'; // Local Storage name prefix
-        $authProvider.unlinkUrl = '/auth/unlink/';
-        $authProvider.unlinkMethod = 'get';
-        $authProvider.authToken = 'Bearer';
         $authProvider.withCredentials = false;
-        $authProvider.platform = 'browser'; // or 'mobile'
-        $authProvider.storage = 'localStorage'; // or 'sessionStorage'
-
-        $authProvider.loginUrl = link_server + 'login.php';
-        $authProvider.authToken = 'Bearer';*/
-        $authProvider.withCredentials = false;
-        $authProvider.baseUrl = '' // API Base URL for the paths below.
-        $authProvider.loginUrl = link_server + 'login.php';
+        $authProvider.baseUrl = ''; // API Base URL for the paths below.
+        $authProvider.loginUrl = config.LINK_SERVER + 'login.php';
         $authProvider.facebook({
             clientId: '1599615690280071',
-            url: link_server + 'facebook.php'
+            url: config.LINK_SERVER + 'facebook.php'
         });
 
         $authProvider.google({
             clientId: '48885658359-791rlan9bdhuq9omjg9tbkva1f3hkovq.apps.googleusercontent.com',
-            url: link_server + 'google.php'
+            url: config.LINK_SERVER + 'google.php'
         });
 
         $authProvider.github({
@@ -72,14 +53,14 @@ angular
         });
 
         $authProvider.twitter({
-            url: link_server + 'twitter.php'
+            url: config.LINK_SERVER + 'twitter.php'
             //url: '/auth/twitter'
         });
 
         $authProvider.oauth2({
             name: 'foursquare',
             url: 'htpp://localhost:8000/auth....',
-            redirectUri: window.location.origin,
+            //redirectUri: window.location.origin,
             clientId: 'MTCEJ3NGW2PNNB31WOSBFDSAD4MTHYVAZ1UKIULXZ2CVFC2K',
             authorizationEndpoint: 'https://foursquare.com/oauth2/authenticate'
         });
@@ -92,14 +73,14 @@ angular
                 url: '/',
                 views: {
                     '@' : {
-                        templateUrl: path_layout + 'index.html',
+                        templateUrl: config.PATH_LAYOUT + 'index.html',
                         controller: 'IndexController',
                         controllerAs: 'vm',
                         title: 'Home'
                     },
-                    'header@home' : { templateUrl: path_layout + 'navbar.html'},
-                    'left@home' : { templateUrl: path_layout + 'navleft.html'},
-                    'content@home' : { templateUrl: path_modules + 'index.html'}
+                    'header@home' : { templateUrl: config.PATH_LAYOUT + 'navbar.html'},
+                    'left@home' : { templateUrl: config.PATH_LAYOUT + 'navleft.html'},
+                    'content@home' : { templateUrl: config.PATH_MODULES + 'index.html'}
                 }
             })
             .state('dataTable', {
@@ -107,14 +88,14 @@ angular
                 url: '/dataTable',
                 views: {
                     '@' : {
-                        templateUrl: path_layout + 'index.html',
+                        templateUrl: config.PATH_LAYOUT + 'index.html',
                         controller: 'DataTableController',
                         controllerAs: 'vm',
                         title: 'DataTable'
                     },
-                    'header@dataTable' : { templateUrl: path_layout + 'navbar.html'},
-                    'left@dataTable' : { templateUrl: path_layout + 'navleft.html'},
-                    'content@dataTable' : { templateUrl: path_modules + 'datatable/datatable.html'}
+                    'header@dataTable' : { templateUrl: config.PATH_LAYOUT + 'navbar.html'},
+                    'left@dataTable' : { templateUrl: config.PATH_LAYOUT + 'navleft.html'},
+                    'content@dataTable' : { templateUrl: config.PATH_MODULES + 'datatable/datatable.html'}
                 }
             })
             .state('chartType', {
@@ -122,13 +103,13 @@ angular
                 url: '/chartType',
                 views: {
                     '@' : {
-                        templateUrl: path_layout + 'index.html',
+                        templateUrl: config.PATH_LAYOUT + 'index.html',
                         controller: 'chartTypeController',
                         controllerAs: 'vm'
                     },
-                    'header@chartType' : { templateUrl: path_layout + 'navbar.html'},
-                    'left@chartType' : { templateUrl: path_layout + 'navleft.html'},
-                    'content@chartType' : { templateUrl: path_modules + 'chart/chart.html'}
+                    'header@chartType' : { templateUrl: config.PATH_LAYOUT + 'navbar.html'},
+                    'left@chartType' : { templateUrl: config.PATH_LAYOUT + 'navleft.html'},
+                    'content@chartType' : { templateUrl: config.PATH_MODULES + 'chart/chart.html'}
                 }
             })
             .state('chartGauge', {
@@ -136,13 +117,13 @@ angular
                 url: '/chartGauge',
                 views: {
                     '@' : {
-                        templateUrl: path_layout + 'index.html',
+                        templateUrl: config.PATH_LAYOUT + 'index.html',
                         controller: 'chartGaugeController',
                         controllerAs: 'vm'
                     },
-                    'header@chartGauge' : { templateUrl: path_layout + 'navbar.html'},
-                    'left@chartGauge' : { templateUrl: path_layout + 'navleft.html'},
-                    'content@chartGauge' : { templateUrl: path_modules + 'chart/chart.html'}
+                    'header@chartGauge' : { templateUrl: config.PATH_LAYOUT + 'navbar.html'},
+                    'left@chartGauge' : { templateUrl: config.PATH_LAYOUT + 'navleft.html'},
+                    'content@chartGauge' : { templateUrl: config.PATH_MODULES + 'chart/chart.html'}
                 }
             })
             .state('profile', {
@@ -150,13 +131,13 @@ angular
                 url: '/profile',
                 views: {
                     '@' : {
-                        templateUrl: path_layout + 'index.html',
+                        templateUrl: config.PATH_LAYOUT + 'index.html',
                         controller: 'ProfileController',
                         controllerAs: 'vm'
                     },
-                    'header@profile' : { templateUrl: path_layout + 'navbar.html'},
-                    'left@profile' : { templateUrl: path_layout + 'navleft.html'},
-                    'content@profile' : { templateUrl: path_modules + 'account/profile.html'}
+                    'header@profile' : { templateUrl: config.PATH_LAYOUT + 'navbar.html'},
+                    'left@profile' : { templateUrl: config.PATH_LAYOUT + 'navleft.html'},
+                    'content@profile' : { templateUrl: config.PATH_MODULES + 'account/profile.html'}
                 }
             })
             .state('addPost', {
@@ -164,13 +145,13 @@ angular
                 url: '/addPost',
                 views: {
                     '@' : {
-                        templateUrl: path_layout + 'index.html',
+                        templateUrl: config.PATH_LAYOUT + 'index.html',
                         controller: 'addPostController',
                         controllerAs: 'vm'
                     },
-                    'header@addPost' : { templateUrl: path_layout + 'navbar.html'},
-                    'left@addPost' : { templateUrl: path_layout + 'navleft.html'},
-                    'content@addPost' : { templateUrl: path_modules + 'post/add_post.html'}
+                    'header@addPost' : { templateUrl: config.PATH_LAYOUT + 'navbar.html'},
+                    'left@addPost' : { templateUrl: config.PATH_LAYOUT + 'navleft.html'},
+                    'content@addPost' : { templateUrl: config.PATH_MODULES + 'post/add_post.html'}
                 }
             })
             .state('editPost', {
@@ -178,13 +159,13 @@ angular
                 url: '/editPost/{id:int}',
                 views: {
                     '@' : {
-                        templateUrl: path_layout + 'index.html',
+                        templateUrl: config.PATH_LAYOUT + 'index.html',
                         controller: 'editPostController',
                         controllerAs: 'vm'
                     },
-                    'header@editPost' : { templateUrl: path_layout + 'navbar.html'},
-                    'left@editPost' : { templateUrl: path_layout + 'navleft.html'},
-                    'content@editPost' : { templateUrl: path_modules + 'post/add_post.html'}
+                    'header@editPost' : { templateUrl: config.PATH_LAYOUT + 'navbar.html'},
+                    'left@editPost' : { templateUrl: config.PATH_LAYOUT + 'navleft.html'},
+                    'content@editPost' : { templateUrl: config.PATH_MODULES + 'post/add_post.html'}
                 }
             })
             .state('listPost', {
@@ -192,13 +173,13 @@ angular
                 url: '/listPost',
                 views: {
                     '@' : {
-                        templateUrl: path_layout + 'index.html',
+                        templateUrl: config.PATH_LAYOUT + 'index.html',
                         controller: 'listPostController',
                         controllerAs: 'vm'
                     },
-                    'header@listPost' : { templateUrl: path_layout + 'navbar.html'},
-                    'left@listPost' : { templateUrl: path_layout + 'navleft.html'},
-                    'content@listPost' : { templateUrl: path_modules + 'post/list_post.html'}
+                    'header@listPost' : { templateUrl: config.PATH_LAYOUT + 'navbar.html'},
+                    'left@listPost' : { templateUrl: config.PATH_LAYOUT + 'navleft.html'},
+                    'content@listPost' : { templateUrl: config.PATH_MODULES + 'post/list_post.html'}
                 }
             })
             .state('addImage', {
@@ -206,13 +187,13 @@ angular
                 url: '/addImage',
                 views: {
                     '@' : {
-                        templateUrl: path_layout + 'index.html',
+                        templateUrl: config.PATH_LAYOUT + 'index.html',
                         controller: 'addImageController',
                         controllerAs: 'vm'
                     },
-                    'header@addImage' : { templateUrl: path_layout + 'navbar.html'},
-                    'left@addImage' : { templateUrl: path_layout + 'navleft.html'},
-                    'content@addImage' : { templateUrl: path_modules + 'image/add_image.html'}
+                    'header@addImage' : { templateUrl: config.PATH_LAYOUT + 'navbar.html'},
+                    'left@addImage' : { templateUrl: config.PATH_LAYOUT + 'navleft.html'},
+                    'content@addImage' : { templateUrl: config.PATH_MODULES + 'image/add_image.html'}
                 }
             })
             .state('editImage', {
@@ -220,13 +201,13 @@ angular
                 url: '/editImage/{id:int}',
                 views: {
                     '@' : {
-                        templateUrl: path_layout + 'index.html',
+                        templateUrl: config.PATH_LAYOUT + 'index.html',
                         controller: 'editImageController',
                         controllerAs: 'vm'
                     },
-                    'header@editImage' : { templateUrl: path_layout + 'navbar.html'},
-                    'left@editImage' : { templateUrl: path_layout + 'navleft.html'},
-                    'content@editImage' : { templateUrl: path_modules + 'image/add_image.html'}
+                    'header@editImage' : { templateUrl: config.PATH_LAYOUT + 'navbar.html'},
+                    'left@editImage' : { templateUrl: config.PATH_LAYOUT + 'navleft.html'},
+                    'content@editImage' : { templateUrl: config.PATH_MODULES + 'image/add_image.html'}
                 }
             })
             .state('listImage', {
@@ -234,13 +215,13 @@ angular
                 url: '/listImage',
                 views: {
                     '@' : {
-                        templateUrl: path_layout + 'index.html',
+                        templateUrl: config.PATH_LAYOUT + 'index.html',
                         controller: 'listImageController',
                         controllerAs: 'vm'
                     },
-                    'header@listImage' : { templateUrl: path_layout + 'navbar.html'},
-                    'left@listImage' : { templateUrl: path_layout + 'navleft.html'},
-                    'content@listImage' : { templateUrl: path_modules + 'image/list_image.html'}
+                    'header@listImage' : { templateUrl: config.PATH_LAYOUT + 'navbar.html'},
+                    'left@listImage' : { templateUrl: config.PATH_LAYOUT + 'navleft.html'},
+                    'content@listImage' : { templateUrl: config.PATH_MODULES + 'image/list_image.html'}
                 }
             })
             .state('login', {
@@ -248,11 +229,11 @@ angular
                 url: '/login',
                 views: {
                     '@' : {
-                        templateUrl: path_layout + 'login.html',
+                        templateUrl: config.PATH_LAYOUT + 'login.html',
                         controller: 'LoginController',
                         controllerAs: 'vm'
                     },
-                    'content@login' : { templateUrl: path_modules + 'account/login.html'}
+                    'content@login' : { templateUrl: config.PATH_MODULES + 'account/login.html'}
                 }
             });
 
@@ -276,7 +257,7 @@ angular
         });
   })
 
-    .run(function($rootScope, $location, $state, $auth, accountService) {
+    .run(function($rootScope, $location, $state, $auth) {
 
         $rootScope.$on( '$stateChangeStart', function(e, toState) {
             var isLogin = toState.name === 'login';
@@ -288,11 +269,10 @@ angular
             // now, redirect only not authenticated
 
             var token = $auth.getToken();
+            //console.log('token:' + token);
             if(!token) {
                 e.preventDefault(); // stop current execution
                 $state.go('login'); // go to login
-            }else{
-                $location.path('/');
             }
         });
     });
