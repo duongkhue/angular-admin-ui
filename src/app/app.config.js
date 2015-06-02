@@ -235,6 +235,10 @@ angular
                     },
                     'content@login' : { templateUrl: config.PATH_MODULES + 'account/login.html'}
                 }
+            })
+            .state('logout', {
+                url: '/logout',
+                controller: 'LogoutController'
             });
 
         $urlRouterProvider.otherwise('/');
@@ -273,6 +277,8 @@ angular
             if(!token) {
                 e.preventDefault(); // stop current execution
                 $state.go('login'); // go to login
+            } else{
+                $location.path('/');
             }
         });
     });

@@ -33,18 +33,12 @@ function ProfileController(){
 function LoginController($auth, $location){
     var vm = this;
     vm.titlepage = 'Login';
+    //console.log('login page token: ' + $auth.getToken());
     if($auth.getToken()){
         $location.path('/');
     }
     vm.submit = function(obj){
-        $auth.login({email:obj.email,password:obj.password},$auth.loginRedirect)
-        .then(function(data) {
-            $auth.setToken(data.token);
-            $location.path('/');
-        })
-            .catch(function(response) {
-               console.log(response);
-            });
+        $auth.login({email:obj.email,password:obj.password});
     }
 
     vm.authenticate = function(provider){

@@ -1,9 +1,11 @@
 'use strict';
 
 angular.module('myproject')
-  .controller('NavbarCtrl', function ($scope, $auth) {
+  .controller('NavbarCtrl', function ($scope, $location, $auth) {
         var vm = this;
-        vm.isAuthenticated = function(){
-            return $auth.getToken();
+        if($auth.getToken()){
+            vm.isDisplay = true;
+        } else{
+            vm.isDisplay = false;
         }
   });
