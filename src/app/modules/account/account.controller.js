@@ -30,19 +30,27 @@ function ProfileController(){
     vm.titlepage = 'Profile';
 }
 
-function LoginController($auth){
+function LoginController($auth, $location){
     var vm = this;
     vm.titlepage = 'Login';
+    if($auth.getToken()){
+        $location.path('/');
+    }
+    vm.submit = function(obj){
+        $auth.login({email:obj.email,password:obj.password},$auth.loginRedirect)
+        .then(function(data) {
+            $auth.setToken(data.token);
+            $location.path('/');
+        })
+            .catch(function(response) {
+               console.log(response);
+            });
+    }
+
     vm.authenticate = function(provider){
         $auth.authenticate(provider)
         .then(function() {
-                console.log("login success");
-            /*$alert({
-                content: 'You have successfully logged in',
-                animation: 'fadeZoomFadeDown',
-                type: 'material',
-                duration: 3
-            });*/
+                $state.go('/');
         })
             .catch(function(response) {
                 console.log("login error");

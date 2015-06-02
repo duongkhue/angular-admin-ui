@@ -21,9 +21,9 @@ angular
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $authProvider) {
 
         /*begin config authentication*/
-        $authProvider.httpInterceptor = true; // Add Authorization header to HTTP request
+        /*$authProvider.httpInterceptor = true; // Add Authorization header to HTTP request
         $authProvider.loginOnSignup = true;
-        $authProvider.baseUrl = '/' // API Base URL for the paths below.
+        $authProvider.baseUrl = '' // API Base URL for the paths below.
         $authProvider.loginRedirect = '/';
         $authProvider.logoutRedirect = '/';
         $authProvider.signupRedirect = '/login';
@@ -35,15 +35,16 @@ angular
         $authProvider.tokenPrefix = 'satellizer'; // Local Storage name prefix
         $authProvider.unlinkUrl = '/auth/unlink/';
         $authProvider.unlinkMethod = 'get';
-        $authProvider.authHeader = 'Authorization';
         $authProvider.authToken = 'Bearer';
         $authProvider.withCredentials = false;
         $authProvider.platform = 'browser'; // or 'mobile'
         $authProvider.storage = 'localStorage'; // or 'sessionStorage'
 
         $authProvider.loginUrl = link_server + 'login.php';
-        $authProvider.loginRedirect = '/';
-        $authProvider.authToken = 'Bearer';
+        $authProvider.authToken = 'Bearer';*/
+        $authProvider.withCredentials = false;
+        $authProvider.baseUrl = '' // API Base URL for the paths below.
+        $authProvider.loginUrl = link_server + 'login.php';
         $authProvider.facebook({
             clientId: '1599615690280071',
             url: link_server + 'facebook.php'
@@ -286,12 +287,12 @@ angular
 
             // now, redirect only not authenticated
 
-            var userInfo = $auth.isAuthenticated();
-            //var userInfo = accountService.authentication();
-
-            if(userInfo === false) {
+            var token = $auth.getToken();
+            if(!token) {
                 e.preventDefault(); // stop current execution
                 $state.go('login'); // go to login
+            }else{
+                $location.path('/');
             }
         });
     });
