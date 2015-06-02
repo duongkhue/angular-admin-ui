@@ -2,6 +2,7 @@
 var currentPage = '';
 var path_layout = './app/layout/';
 var path_modules = './app/modules/';
+var link_server = 'http://auth.dev/';
 angular
     .module('myproject', [
         'ngAnimate',
@@ -20,15 +21,37 @@ angular
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $authProvider) {
 
         /*begin config authentication*/
-        $authProvider.withCredentials = false,
+        $authProvider.httpInterceptor = true; // Add Authorization header to HTTP request
+        $authProvider.loginOnSignup = true;
+        $authProvider.baseUrl = '/' // API Base URL for the paths below.
+        $authProvider.loginRedirect = '/';
+        $authProvider.logoutRedirect = '/';
+        $authProvider.signupRedirect = '/login';
+        $authProvider.signupUrl = '/auth/signup';
+        $authProvider.loginRoute = '/login';
+        $authProvider.signupRoute = '/signup';
+        $authProvider.tokenRoot = false; // set the token parent element if the token is not the JSON root
+        $authProvider.tokenName = 'token';
+        $authProvider.tokenPrefix = 'satellizer'; // Local Storage name prefix
+        $authProvider.unlinkUrl = '/auth/unlink/';
+        $authProvider.unlinkMethod = 'get';
+        $authProvider.authHeader = 'Authorization';
+        $authProvider.authToken = 'Bearer';
+        $authProvider.withCredentials = false;
+        $authProvider.platform = 'browser'; // or 'mobile'
+        $authProvider.storage = 'localStorage'; // or 'sessionStorage'
+
+        $authProvider.loginUrl = link_server + 'login.php';
+        $authProvider.loginRedirect = '/';
+        $authProvider.authToken = 'Bearer';
         $authProvider.facebook({
             clientId: '1599615690280071',
-            url: 'http://localhost:8000/auth/facebook.php'
+            url: link_server + 'facebook.php'
         });
 
         $authProvider.google({
             clientId: '48885658359-791rlan9bdhuq9omjg9tbkva1f3hkovq.apps.googleusercontent.com',
-            url: 'http://localhost:8000/auth/google.php'
+            url: link_server + 'google.php'
         });
 
         $authProvider.github({
@@ -48,7 +71,8 @@ angular
         });
 
         $authProvider.twitter({
-            url: '/auth/twitter'
+            url: link_server + 'twitter.php'
+            //url: '/auth/twitter'
         });
 
         $authProvider.oauth2({
@@ -251,7 +275,7 @@ angular
         });
   })
 
-    .run(function($rootScope, $location, $state, accountService) {
+    .run(function($rootScope, $location, $state, $auth, accountService) {
 
         $rootScope.$on( '$stateChangeStart', function(e, toState) {
             var isLogin = toState.name === 'login';
@@ -262,9 +286,10 @@ angular
 
             // now, redirect only not authenticated
 
-            var userInfo = accountService.authentication();
+            var userInfo = $auth.isAuthenticated();
+            //var userInfo = accountService.authentication();
 
-            if(userInfo.isAuthenticated === false) {
+            if(userInfo === false) {
                 e.preventDefault(); // stop current execution
                 $state.go('login'); // go to login
             }
