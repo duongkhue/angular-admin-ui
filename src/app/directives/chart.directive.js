@@ -885,4 +885,4 @@ function angularChart($compile, $q){
 
         }
 };
-};
+}

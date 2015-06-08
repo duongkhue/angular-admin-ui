@@ -13,7 +13,8 @@ angular
         'angularFileUpload',
         'angularUtils.directives.dirPagination',
         'datatables',
-        'satellizer'
+        'satellizer',
+        'leaflet-directive'
         ])
     .constant('config',{
         PATH_LAYOUT: './app/layout/',
@@ -234,6 +235,20 @@ angular
                         controllerAs: 'vm'
                     },
                     'content@login' : { templateUrl: config.PATH_MODULES + 'account/login.html'}
+                }
+            })
+            .state('map', {
+                title: 'Map',
+                url: '/map',
+                views: {
+                    '@' : {
+                        templateUrl: config.PATH_LAYOUT + 'index.html',
+                        controller: 'mapController',
+                        controllerAs: 'vm'
+                    },
+                    'header@map' : { templateUrl: config.PATH_LAYOUT + 'navbar.html'},
+                    'left@map' : { templateUrl: config.PATH_LAYOUT + 'navleft.html'},
+                    'content@map' : { templateUrl: config.PATH_MODULES + 'map/map.html'}
                 }
             })
             .state('logout', {
