@@ -1,6 +1,6 @@
 <h1 class="page-header" ng-bind="vm.titlepage"></h1>
 <div class="col-sm-12 placeholders">
-    <div ng-controller="listPostController as showCase" class="mg-top-10">
+    <div class="mg-top-10">
         <form>
             <div class="form-group">
                 <label>Address:</label>
@@ -13,8 +13,11 @@
             <div class="form-group">
                 <input type="button" ng-click="vm.searchIP(vm)" value="Search" />
             </div>
+            <div class="form-group">
+                <input type="button" ng-click="vm.findMe()" value="Find Me" />
+            </div>
         </form>
         <hr>
-        <leaflet id="viewMap" center="center" height="480px" width="100%"></leaflet>
+        <leaflet id="viewMap" layers="layers" controls="controls" center="center" height="480px" width="100%"></leaflet>
     </div>
 </div>

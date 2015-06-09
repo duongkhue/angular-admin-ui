@@ -292,8 +292,6 @@ angular
             if(!token) {
                 e.preventDefault(); // stop current execution
                 $state.go('login'); // go to login
-            } else{
-                $location.path('/');
             }
         });
     });

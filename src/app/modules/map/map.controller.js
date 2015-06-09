@@ -8,21 +8,62 @@ angular
     .controller('mapController',mapController)
 ;
 
-function mapController($scope, $http){
+function mapController($scope, $http, leafletData){
     var vm = this;
     vm.titlepage = 'Map';
     vm.address = '1600 Pennsylvania Avenue NW, Washington, D.C. 20500';
-    var pos = L.GeoIP.getPosition();
+    //var pos = L.GeoIP.getPosition();
+    /*
+    $scope.setRegion = function(region) {
+        if (!region) {
+            $scope.maxbounds = {};
+        } else {
+            $scope.maxbounds = regions[region];
+        }
+    };*/
     angular.extend($scope,{
         center:{
-            lat:pos.lat,
-            lng:pos.lng,
+            autoDiscover: true,
             zoom:44
+        },
+        controls: {
+            draw: {}
+        },
+        layers: {
+            baselayers: {
+                osm: {
+                    name: 'OpenStreetMap',
+                    url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    type: 'xyz'
+                },
+                mapbox_light: {
+                    url: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
+                    options: {
+                        apikey: 'pk.eyJ1IjoiYnVmYW51dm9scyIsImEiOiJLSURpX0pnIn0.2_9NrLz1U9bpwMQBhVk97Q',
+                        mapid: 'bufanuvols.lia22g09'
+                    }
+                }
+            }
         }
-    })
-    L.GeoSearch.Provider.Google.GetLocations('Amsterdam', function(data){
-        console.log(data);
     });
+    leafletData.getMap().then(function(map) {
+        var drawnItems = $scope.controls.edit.featureGroup;
+        map.on('draw:created', function (e) {
+            var layer = e.layer;
+            drawnItems.addLayer(layer);
+            console.log(JSON.stringify(layer.toGeoJSON()));
+        });
+    });
+    vm.findMe = function(){
+        angular.extend($scope, {
+            center: {
+                autoDiscover: true
+            }
+        });
+    }
+    /*L.GeoSearch.Provider.Google.GetLocations('Amsterdam', function(data){
+        console.log(data);
+    });*/
 
     /*vm.searchIP = function(obj){
         var googleGeocodeProvider = new L.GeoSearch.Provider.Google(),
@@ -48,19 +89,4 @@ function mapController($scope, $http){
         });
         console.log('latitude: ' + $scope.latitude + ', longitude: ' + $scope.longitude);
     }*/
-    /*var test = leafletData.getMap().then(function(map) {
-        //L.GeoIP.centerMapOnPosition(map, 15);
-        L.Marker.getLatLng();
-    });
-    console.log(test);*/
-}
-function getLatLng($scope, $http, address){
-    var url = '';
-    url += 'http://maps.google.com/maps/api/geocode/json?address=';
-    url += address;
-    url += '&sensor=false';
-    $http.get(url).success(function(mapData) {
-        return mapData;
-        //angular.extend($scope, mapData);
-    });
 }
