@@ -16,9 +16,49 @@
             <div class="form-group">
                 <input type="button" ng-click="vm.findMe()" value="Find Me" />
             </div>
+            <div class="form-group">
+                <label>Change Icon: </label>
+                <select name="iconMarker" data-ng-model="vm.iconMarker" ng-change="vm.changeIcon()">
+                    <option value="">--- select marker ---</option>
+                    <option value="defaultIcon">Default</option>
+                    <option value="leafIcon">Leaf</option>
+                    <option value="orangeLeafIcon">Orange Leaf</option>
+                    <option value="blueAwesomeMarkerIcon">Blue Awesome Marker</option>
+                    <option value="redAwesomeMarkerIcon">Red Awesome Marker</option>
+                    <option value="greenAwesomeMarkerIcon">Green Awesome Marker</option>
+                    <option value="tabAwesomeMarkerIcon">Tab Awesome Marker</option>
+                    <option value="usdAwesomeMarkerIcon">USD Awesome Marker</option>
+                    <option value="heartAwesomeMarkerIcon">Heart Awesome Marker</option>
+                    <option value="homeAwesomeMarkerIcon">Home Awesome Marker</option>
+                    <option value="cogAwesomeMarkerIcon">Cog Awesome Marker</option>
+                    <option value="starAwesomeMarkerIcon">Star Awesome Marker</option>
+                    <option value="certificateAwesomeMarkerIcon">Certificate Awesome Marker</option>
+                    <option value="blueMakiMarkerIcon">Blue Maki Marker</option>
+                    <option value="redMakiMarkerIcon">Red Maki Marker</option>
+                    <option value="greenMakiMarkerIcon">Green Maki Marker</option>
+                    <option value="purpleMakiMarkerIcon">Purple Maki Marker</option>
+                    <option value="rocketMakiMarkerIcon">Rocket Maki Marker</option>
+                    <option value="beerMakiMarkerIcon">Beer Maki Marker</option>
+                    <option value="warehouseMakiMarkerIcon">WareHouse Maki Marker</option>
+                    <option value="shopMakiMarkerIcon">Shop Maki Marker</option>
+                    <option value="blueExtraMarkerIcon">Blue Extra Marker</option>
+                    <option value="redExtraMarkerIcon">Red Extra Marker</option>
+                    <option value="greenExtraMarkerIcon">Green Extra Marker</option>
+                    <option value="tagExtraMarkerIcon">Tag Extra Marker</option>
+                    <option value="usdExtraMarkerIcon">USD Extra Marker</option>
+                    <option value="heartExtraMarkerIcon">Heart Extra Marker</option>
+                    <option value="homeExtraMarkerIcon">Home Extra Marker</option>
+                    <option value="cogExtraMarkerIcon">Cog Extra Marker</option>
+                    <option value="starExtraMarkerIcon">Star Extra Marker</option>
+                    <option value="certificateExtraMarkerIcon">Certificate Extra Marker</option>
+                    <option value="squareExtraMarkerIcon">Square Extra Marker</option>
+                    <option value="starExtraMarkerIcon">Star Extra Marker</option>
+                    <option value="circleExtraMarkerIcon">Circle Extra Marker</option>
+                </select>
+            </div>
         </form>
         <hr>
-        <leaflet center="center" layers="layers" controls="controls" width="100%" height="400"></leaflet>
+        <leaflet center="center" markers="markers" layers="layers" controls="controls" width="100%" height="400"></leaflet>
         <!--<leaflet id="viewMap" layers="layers" controls="controls" markers="markers" center="center" height="480px" width="100%"></leaflet>-->
     </div>
 </div>
