@@ -12,7 +12,22 @@ function mapController($scope, $http, leafletData){
     var vm = this;
     vm.titlepage = 'Map';
     vm.address = '1600 Pennsylvania Avenue NW, Washington, D.C. 20500';
+    leafletData.getMap('viewMap').then(function(map) {
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
+        var searchControl = new L.esri.Geocoding.Controls.Geosearch().addTo(map);
+
+        var results = new L.LayerGroup().addTo(map);
+
+        searchControl.on('results', function(data){
+            results.clearLayers();
+            for (var i = data.results.length - 1; i >= 0; i--) {
+                results.addLayer(L.marker(data.results[i].latlng));
+            }
+        });
+    })
     angular.extend($scope, {
         center: {
             lat: 41.85,
@@ -465,6 +480,24 @@ function mapController($scope, $http, leafletData){
         console.log(data);
     });*/
 
+    vm.searchIP = function(obj){
+        var map = L.map(this.element.dom).setView([40.91, -96.63], 4);
+
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var searchControl = new L.esri.Geocoding.Controls.Geosearch().addTo(map);
+
+        var results = new L.LayerGroup().addTo(map);
+
+        searchControl.on('results', function(data){
+            results.clearLayers();
+            for (var i = data.results.length - 1; i >= 0; i--) {
+                results.addLayer(L.marker(data.results[i].latlng));
+            }
+        });
+    }
     /*vm.searchIP = function(obj){
         var googleGeocodeProvider = new L.GeoSearch.Provider.Google(),
             addressText = 'Amsterdam';
