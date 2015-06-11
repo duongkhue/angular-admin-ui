@@ -27,6 +27,7 @@ function mapController($scope, $http, leafletData){
                 results.addLayer(L.marker(data.results[i].latlng));
             }
         });
+        map.addControl( new L.Control.Compass() );
     })
     angular.extend($scope, {
         center: {
@@ -423,79 +424,20 @@ function mapController($scope, $http, leafletData){
             $scope.maxbounds = regions[region];
         }
     };*/
-    /*angular.extend($scope,{
-        center:{
-            lat: 52.52,
-            lng: 13.40,
-            zoom: 14
-        },
-        controls: {
-            draw: {}
-        },
-        layers: {
-            baselayers: {
-                mapbox_light: {
-                    name: 'Mapbox Light',
-                    url: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
-                    type: 'xyz',
-                    layerOptions: {
-                        apikey: 'pk.eyJ1IjoiYnVmYW51dm9scyIsImEiOiJLSURpX0pnIn0.2_9NrLz1U9bpwMQBhVk97Q',
-                        mapid: 'bufanuvols.lia22g09'
-                    }
-                },
-                osm: {
-                    name: 'OpenStreetMap',
-                    url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                    type: 'xyz'
-                }
-                //Google:L.Google()
-            }
-        },
-        markers:{
-            m1: {
-                lat: 52.52,
-                lng: 13.40,
-                draggable: true,
-                title:'test'
-            }
-        }
-    });
-
-    leafletData.getMap().then(function(map) {
-        var drawnItems = $scope.controls.edit.featureGroup;
-        map.on('draw:created', function (e) {
-            var layer = e.layer;
-            drawnItems.addLayer(layer);
-            console.log(JSON.stringify(layer.toGeoJSON()));
-        });
-    });
     vm.findMe = function(){
         angular.extend($scope, {
             center: {
                 autoDiscover: true
             }
         });
-    }*/
-    /*L.GeoSearch.Provider.Google.GetLocations('Amsterdam', function(data){
-        console.log(data);
-    });*/
+    }
 
     vm.searchIP = function(obj){
-        var map = L.map(this.element.dom).setView([40.91, -96.63], 4);
-
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        var searchControl = new L.esri.Geocoding.Controls.Geosearch().addTo(map);
-
-        var results = new L.LayerGroup().addTo(map);
-
-        searchControl.on('results', function(data){
-            results.clearLayers();
-            for (var i = data.results.length - 1; i >= 0; i--) {
-                results.addLayer(L.marker(data.results[i].latlng));
-            }
+        var googleGeocodeProvider = new L.GeoSearch.Provider.Google(),
+            addressText = 'Amsterdam';
+        googleGeocodeProvider.GetLocations( addressText, function ( data ) {
+            console.log("data: " + data);
+            // in data are your results with x, y, label and bounds (currently availabel for google maps provider only)
         });
     }
     /*vm.searchIP = function(obj){
