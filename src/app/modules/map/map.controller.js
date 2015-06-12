@@ -15,9 +15,9 @@ function mapController($scope, $http, leafletData){
 
 
     leafletData.getMap('viewMap').then(function(map) {
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        //L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        //}).addTo(map);
 
         var searchControl = new L.esri.Geocoding.Controls.Geosearch().addTo(map);
 
@@ -36,7 +36,9 @@ function mapController($scope, $http, leafletData){
                 L.latLng(57.74, 11.94),
                 L.latLng(57.6792, 11.949)
             ],
-            routeWhileDragging: true
+            geocoder: L.Control.Geocoder.nominatim(),
+            routeWhileDragging: true,
+            reverseWaypoints: true
         }).addTo(map);
     })
     angular.extend($scope, {
@@ -433,19 +435,35 @@ function mapController($scope, $http, leafletData){
         });
     }
 
-    vm.searchIP = function(obj){
-        getLatLng(obj.address);
-        if ($scope.latitude && $scope.longitude){
-            console.log($scope.latitude + ', ' + $scope.longitude);
-        }
+    vm.searchIP = function(){
+        getLatLng(function(data){
+            console.log(data['latitude'] + ', ' + data['longitude']);
+            angular.extend($scope,{
+                markers:{
+                    m1:{
+                        lat: data['latitude'],
+                        lng: data['longitude'],
+                        message: vm.address,
+                        focus: false,
+                        icon: {}
+                    }
+                },
+                center: {
+                    lat: data['latitude'],
+                    lng: data['longitude'],
+                    zoom: 18
+                }
+            });
+        });
     }
-    function getLatLng(address){
+    function getLatLng(callback){
         var arr = [];
         var geocoder = new google.maps.Geocoder();
-        geocoder.geocode( { 'address': address}, function(results, status) {
+        geocoder.geocode( { 'address': vm.address}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                $scope.latitude = results[0].geometry.location.lat();
-                $scope.longitude = results[0].geometry.location.lng();
+                arr['latitude'] = results[0].geometry.location.lat();
+                arr['longitude'] = results[0].geometry.location.lng();
+                callback(arr);
             }
         });
     }
