@@ -14,15 +14,21 @@ angular
         'angularUtils.directives.dirPagination',
         'datatables',
         'satellizer',
-        'leaflet-directive'
+        /*'leaflet-directive',*/
+        'uiGmapgoogle-maps'
         ])
     .constant('config',{
         PATH_LAYOUT: './app/layout/',
         PATH_MODULES: './app/modules/',
         LINK_SERVER: 'http://auth.dev/'
     })
-    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $authProvider, config) {
-        
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $authProvider, config, uiGmapGoogleMapApiProvider) {
+
+        uiGmapGoogleMapApiProvider.configure({
+            china: true,
+            v: '3.17',
+            libraries: 'weather,geometry,visualization'
+        });
         /*begin config authentication*/
         $authProvider.withCredentials = false;
         $authProvider.baseUrl = ''; // API Base URL for the paths below.
@@ -237,7 +243,7 @@ angular
                     'content@login' : { templateUrl: config.PATH_MODULES + 'account/login.html'}
                 }
             })
-            .state('map', {
+            /*.state('map', {
                 title: 'Map',
                 url: '/map',
                 views: {
@@ -249,6 +255,20 @@ angular
                     'header@map' : { templateUrl: config.PATH_LAYOUT + 'navbar.html'},
                     'left@map' : { templateUrl: config.PATH_LAYOUT + 'navleft.html'},
                     'content@map' : { templateUrl: config.PATH_MODULES + 'map/map.html'}
+                }
+            })*/
+            .state('googleMap', {
+                title: 'Google Map',
+                url: '/googleMap',
+                views: {
+                    '@' : {
+                        templateUrl: config.PATH_LAYOUT + 'index.html',
+                        controller: 'googleMapController',
+                        controllerAs: 'vm'
+                    },
+                    'header@googleMap' : { templateUrl: config.PATH_LAYOUT + 'navbar.html'},
+                    'left@googleMap' : { templateUrl: config.PATH_LAYOUT + 'navleft.html'},
+                    'content@googleMap' : { templateUrl: config.PATH_MODULES + 'googleMap/googleMap.html'}
                 }
             })
             .state('logout', {

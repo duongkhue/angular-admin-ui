@@ -11,27 +11,27 @@ angular
 function mapController($scope, $http, leafletData){
     var vm = this;
     vm.titlepage = 'Map';
-    vm.address = '1600 Pennsylvania Avenue NW, Washington, D.C. 20500';
+    vm.from = 'Thành Thái, Quận 10, Hồ Chí Minh, Vietnam';
+    vm.to = '97/14 Âu Cơ, phường 9, Tân Bình, Hồ Chí Minh, Vietnam';
 
-
-    leafletData.getMap('viewMap').then(function(map) {
+    /*leafletData.getMap('viewMap').then(function(map) {
         //L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         //    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         //}).addTo(map);
 
-        var searchControl = new L.esri.Geocoding.Controls.Geosearch().addTo(map);
+        //var searchControl = new L.esri.Geocoding.Controls.Geosearch().addTo(map);
 
         var results = new L.LayerGroup().addTo(map);
 
-        searchControl.on('results', function(data){
+        *//*searchControl.on('results', function(data){
             results.clearLayers();
             for (var i = data.results.length - 1; i >= 0; i--) {
                 results.addLayer(L.marker(data.results[i].latlng));
             }
-        });
+        });*//*
         map.addControl( new L.Control.Compass() );
 
-        L.Routing.control({
+        *//*L.Routing.control({
             waypoints: [
                 L.latLng(57.74, 11.94),
                 L.latLng(57.6792, 11.949)
@@ -39,15 +39,19 @@ function mapController($scope, $http, leafletData){
             geocoder: L.Control.Geocoder.nominatim(),
             routeWhileDragging: true,
             reverseWaypoints: true
-        }).addTo(map);
+        }).addTo(map);*//*
+
+
     })
     angular.extend($scope, {
         center: {
-            lat: 41.85,
-            lng: -87.65,
+            lat: 52.51,
+            lng: 13.37,
+            *//*lat: 41.85,
+            lng: -87.65,*//*
             zoom: 8
         },
-        markers: {
+        *//*markers: {
             m1: {
                 lat: 41.85,
                 lng: -87.65,
@@ -55,7 +59,7 @@ function mapController($scope, $http, leafletData){
                 focus: false,
                 icon: {}
             }
-        },
+        },*//*
         controls: {
             draw: {}
         },
@@ -87,6 +91,7 @@ function mapController($scope, $http, leafletData){
             console.log(JSON.stringify(layer.toGeoJSON()));
         });
     });
+
 
     vm.changeIcon = function(){
         var params = [];
@@ -436,30 +441,108 @@ function mapController($scope, $http, leafletData){
     }
 
     vm.searchIP = function(){
-        getLatLng(function(data){
-            console.log(data['latitude'] + ', ' + data['longitude']);
-            angular.extend($scope,{
-                markers:{
-                    m1:{
+        var address = vm.address;
+        if(vm.address){
+            getLatLng(vm.address, function(data){
+                console.log(data['latitude'] + ', ' + data['longitude']);
+                angular.extend($scope,{
+                    markers:{
+                        m1:{
+                            lat: data['latitude'],
+                            lng: data['longitude'],
+                            message: vm.address,
+                            focus: false,
+                            icon: {}
+                        }
+                    },
+                    center: {
                         lat: data['latitude'],
                         lng: data['longitude'],
-                        message: vm.address,
-                        focus: false,
-                        icon: {}
+                        zoom: 18
                     }
-                },
-                center: {
-                    lat: data['latitude'],
-                    lng: data['longitude'],
-                    zoom: 18
-                }
+                });
             });
-        });
+        }
+        if(vm.from && vm.to){
+
+            leafletData.getMap().then(function(map) {
+                var sourceMarker1;
+                var targetMarker1;
+                *//*map.removeLayer(targetMarker1);
+                map.removeLayer(sourceMarker1);*//*
+
+
+                // set the service key, this is a demo key
+                // please contact us and request your own key
+                r360.config.serviceKey = 'YWtKiQB7MiZETbCoVsG6';
+
+                // create a target marker icon to be able to distingush source and targets
+                var redIcon = L.icon({iconUrl: './bower_components/route360/lib/leaflet/images/marker-icon-red.png',
+                    shadowUrl: './bower_components/route360/lib/leaflet/images/marker-shadow.png', iconAnchor: [12,45], popupAnchor:  [0, -35] });
+
+                getLatLng(vm.from, function(dataFrom) {
+                    console.log('latitude: ' + dataFrom['latitude']+ ', ' + dataFrom['longitude']);
+                    var latlonsFrom = [dataFrom['latitude'],dataFrom['longitude']];
+
+                    getLatLng(vm.to, function(dataTo) {
+                        *//*var latlons = {
+                            src1 : [10.7731854, 106.66446129999997],
+                            trg1 : [10.7726089, 106.6518509]
+                        };*//*
+                        //console.log(dataFrom['latitude'] + ', ' + dataForm['longitude']);
+                        //console.log(dataTo['latitude'] + ', ' + dataTo['longitude']);
+                        var latlonsTo = [dataTo['latitude'],dataTo['longitude']];
+                        console.log('latitude: ' + dataTo['latitude']+ ', ' + dataTo['longitude']);
+
+                        angular.extend($scope, {
+                            center: {
+                                *//*lat: latlons.src1,
+                                lng: latlons.trg1,*//*
+                                lat: dataFrom['latitude'],
+                                lng: dataFrom['longitude'],
+                                *//*lat: 41.85,
+                                 leaflet-zoom-animated lng: -87.65,*//*
+                                zoom: 15
+                            }
+                        });
+
+                        // create a source and a two target markers and add them to the map
+                        sourceMarker1 = L.marker(latlonsFrom).addTo(map);
+                        targetMarker1 = L.marker(latlonsTo, {icon:redIcon}).addTo(map);
+                        // add a layer in which we will paint the route
+                        var routeLayer = L.featureGroup().addTo(map);
+
+                        // you need to define some options for the polygon service
+                        // for more travel options check out the other tutorials
+                        var travelOptions = r360.travelOptions();
+                        // we only have one source which is the marker we just added
+                        travelOptions.addSource(sourceMarker1);
+                        travelOptions.addTarget(targetMarker1);
+                        // set the travel type to transit
+                        travelOptions.setTravelType('transit');
+
+                        // start the service
+                        r360.RouteService.getRoutes(travelOptions, function(routes){
+
+                            // one route for each source and target combination
+                            _.each(routes, function(route){
+                                //routeLayer.clearLayers();
+                                route.fadeIn(routeLayer, 1000, "travelDistance");
+                            });
+                        });
+                    });
+
+
+                });
+
+
+            });
+        }
     }
-    function getLatLng(callback){
+    function getLatLng(address, callback){
         var arr = [];
         var geocoder = new google.maps.Geocoder();
-        geocoder.geocode( { 'address': vm.address}, function(results, status) {
+        geocoder.geocode( { 'address': address}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 arr['latitude'] = results[0].geometry.location.lat();
                 arr['longitude'] = results[0].geometry.location.lng();
@@ -467,4 +550,15 @@ function mapController($scope, $http, leafletData){
             }
         });
     }
+
+    function getLatLngRouting(from, to){
+        var LatLng = [];
+        getLatLng(from,function(data){
+            LatLng['From'] = data
+        });
+        getLatLng(to,function(data){
+            LatLng['To'] = data
+        });
+        return LatLng;
+    }*/
 }
