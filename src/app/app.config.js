@@ -27,7 +27,7 @@ angular
         uiGmapGoogleMapApiProvider.configure({
             china: true,
             v: '3.17',
-            libraries: 'weather,geometry,visualization'
+            libraries: 'weather,geometry,visualization,places'
         });
         /*begin config authentication*/
         $authProvider.withCredentials = false;
