@@ -15,7 +15,8 @@ angular
         'datatables',
         'satellizer',
         /*'leaflet-directive',*/
-        'uiGmapgoogle-maps'
+        'uiGmapgoogle-maps',
+        'dbaq.google.directions'
         ])
     .constant('config',{
         PATH_LAYOUT: './app/layout/',
@@ -243,7 +244,7 @@ angular
                     'content@login' : { templateUrl: config.PATH_MODULES + 'account/login.html'}
                 }
             })
-            /*.state('map', {
+            .state('map', {
                 title: 'Map',
                 url: '/map',
                 views: {
@@ -256,7 +257,7 @@ angular
                     'left@map' : { templateUrl: config.PATH_LAYOUT + 'navleft.html'},
                     'content@map' : { templateUrl: config.PATH_MODULES + 'map/map.html'}
                 }
-            })*/
+            })
             .state('googleMap', {
                 title: 'Google Map',
                 url: '/googleMap',

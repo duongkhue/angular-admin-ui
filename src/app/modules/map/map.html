@@ -3,10 +3,6 @@
     <div class="mg-top-10" style="margin-bottom:10px;">
         <form>
             <div class="form-group">
-                <label>Address:</label>
-                <input type="text" name="address" data-ng-model="vm.address">
-            </div>
-            <div class="form-group">
                 <label>From:</label>
                 <input type="text" name="from" data-ng-model="vm.from">
             </div>
@@ -19,7 +15,7 @@
                 <input type="text" name="zoom" data-ng-model="vm.zoom">
             </div>
             <div class="form-group">
-                <input type="button" ng-click="vm.searchIP(vm)" value="Search" />
+                <input type="button" ng-click="vm.searchIP(vm)" value="Search" id="routeGo"/>
             </div>
             <div class="form-group">
                 <input type="button" ng-click="vm.findMe()" value="Find Me" />

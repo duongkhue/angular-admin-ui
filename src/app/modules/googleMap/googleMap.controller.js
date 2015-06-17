@@ -8,20 +8,72 @@ angular
     .controller('googleMapController',googleMapController)
 ;
 
-function googleMapController($scope){
+function googleMapController(){
     var vm = this;
     vm.titlepage = 'Google Map';
     vm.from = 'Thành Thái, Quận 10, Hồ Chí Minh, Vietnam';
     vm.to = '97/14 Âu Cơ, phường 9, Tân Bình, Hồ Chí Minh, Vietnam';
-    $scope.map = {center: {latitude: 10.7741854, longitude: 106.66446129999997 }, zoom: 15 };
-    $scope.marker = {
-        id: 0,
-        coords: {
-            latitude: 10.7741854,
-            longitude: 106.66446129999997
+
+    var directionsDisplay = new google.maps.DirectionsRenderer({ draggable: true });
+    var directionsService = new google.maps.DirectionsService();
+    var map;
+    var myLatlng = new google.maps.LatLng(35.270, -80.837)
+
+    $(window).load(function() {
+        var myOptions = {
+            zoom: 10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: myLatlng
+        };
+        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: 'Hello World!'
+        });
+        directionsDisplay.setMap(map);
+
+        $("#routeMode").on("change", function() { calcRoute(); });
+        vm.search = function(){
+            if(vm.from){
+                if(vm.from && vm.to){
+                    calcRoute();
+                    return;
+                }
+                getLatLng(vm.from,function(data){
+                    var myLatlng = new google.maps.LatLng(data['latitude'], data['longitude']);
+                    var myOptions = {
+                        zoom: 20,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        center: myLatlng
+                    };
+                    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+                    new google.maps.Marker({
+                        position: myLatlng,
+                        map: map,
+                        title: 'Hello World!'
+                    });
+                    directionsDisplay.setMap(map);
+                });
+            }
         }
+    });
+    function calcRoute() {
+        var request = {
+            origin: vm.from,
+            destination: vm.to,
+            travelMode: google.maps.TravelMode[$("#routeMode").val()]
+        };
+        directionsService.route(request, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+            }
+        });
     }
-    var events = {
+
+
+
+    /*var events = {
         places_changed: function (searchBox) {
             var places = searchBox.getPlaces()
 
@@ -91,9 +143,9 @@ function googleMapController($scope){
         autocomplete:true,
         types: ['(cities)'],
         bounds: {}
-    };
+    };*/
 
-    $scope.marker = {
+    /*$scope.marker = {
         id: 0,
         coords: {
             latitude: 10.7741854,
@@ -116,41 +168,8 @@ function googleMapController($scope){
                 };
             }
         }
-    };
-    vm.search = function(obj){
-        if(obj.from){
-            getLatLng(obj.from, function(data){
-                $scope.$apply = function(){
-                    $scope.marker = {
-                        id: 0,
-                        coords: {
-                            latitude: data['latitude'],
-                            longitude: data['longitude']
-                        },
-                        options: { draggable: true },
-                        events: {
-                            dragend: function (marker, eventName, args) {
-                                $log.log('marker dragend');
-                                var lat = marker.getPosition().lat();
-                                var lon = marker.getPosition().lng();
-                                $log.log(lat);
-                                $log.log(lon);
+    };*/
 
-                                $scope.marker.options = {
-                                    draggable: true,
-                                    labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
-                                    labelAnchor: "100 0",
-                                    labelClass: "marker-labels"
-                                };
-                            }
-                        }
-                    };
-                    $scope.map = {center: {latitude: data['latitude'], longitude: data['longitude'] }, zoom: 15 , refresh: true};
-                }
-
-            });
-        }
-    }
     function getLatLng(address, callback){
         var arr = [];
         var geocoder = new google.maps.Geocoder();
